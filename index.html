@@ -971,10 +971,15 @@
                 font-size: 1.2rem;
             }
             
-            /* Home Page Mobile Overrides */
+            /* Home Page Mobile Overrides (REDUCED PADDING) */
             .home-hero {
-                padding: 3rem 1.5rem; /* Increased top/bottom padding for mobile emphasis */
+                padding: 3rem 1.5rem; 
             }
+            
+            .hero-content-wrapper {
+                 padding: 2.5rem 1.5rem; /* Further adjustment for inner content on mobile */
+            }
+
             .home-grid {
                 grid-template-columns: 1fr; /* Stack columns */
             }
@@ -1106,6 +1111,30 @@
             
             img, iframe {
                 max-width: 100%;
+            }
+
+            /* MOBILE-SPECIFIC FIXES */
+            /* 1. Schedule Page: Hide team records on mobile */
+            .team-record {
+                display: none;
+            }
+
+            /* 2. NBLL College: Add horizontal scroll to stats table container */
+            .college-stats-scroll {
+                overflow-x: auto;
+                width: 100%;
+            }
+        }
+        
+        /* Desktop/Tablet (>= 768px) */
+        @media (min-width: 769px) {
+            /* 2. Ensure records are visible on desktop */
+            .team-record {
+                display: inline;
+            }
+            /* 3. Ensure percentage table doesn't scroll on desktop */
+            .college-stats-scroll {
+                overflow-x: hidden;
             }
         }
     </style>
@@ -1417,8 +1446,8 @@
             
             <!-- COLLEGE LEAGUE LEADERS -->
             <h2 style="margin: 2rem 0 1rem 0;">College League Leaders</h2>
-            <div style="background: white; border-radius: 12px; padding: 1.5rem; border: 1px solid #eee; box-shadow: var(--shadow-sm);">
-                <table style="width: 100%; border-collapse: separate; border-spacing: 0 5px;">
+            <div class="college-stats-scroll" style="background: white; border-radius: 12px; padding: 1.5rem; border: 1px solid #eee; box-shadow: var(--shadow-sm);">
+                <table style="width: 100%; border-collapse: separate; border-spacing: 0 5px; min-width: 500px;">
                     <thead>
                         <tr style="background: #f8f8f8;">
                             <th style="text-align: left; padding: 10px;">Player</th>

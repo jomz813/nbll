@@ -1,0 +1,1676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NBLL | Roblox Basketball League</title>
+    <!-- Import Inter Font & Russo One (Sports Font) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Russo+One&display=swap" rel="stylesheet">
+    <!-- Import Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- VARIABLES & THEME --- */
+        :root {
+            --primary-red: #cc0000;       /* Bold Red */
+            --hover-red: #ff1a1a;         /* Brighter Red for hover */
+            --bg-white: #ffffff;          /* Pure White */
+            --bg-offset: #f3f4f6;         /* Light Grey for background */
+            --text-black: #111111;        /* Almost Black */
+            --text-grey: #6b7280;         /* Muted text */
+            --shadow-sm: 0 4px 6px rgba(0,0,0,0.05);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.1);
+            --radius: 16px;               /* Rounded corners */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-offset);
+            color: var(--text-black);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeSlideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Class to trigger animation */
+        .animate-in {
+            animation: fadeSlideIn 0.5s ease forwards;
+            opacity: 0; /* Hidden initially */
+        }
+
+        /* Stagger delays for up to 15 items */
+        .stagger-1 { animation-delay: 0.05s; }
+        .stagger-2 { animation-delay: 0.1s; }
+        .stagger-3 { animation-delay: 0.15s; }
+        .stagger-4 { animation-delay: 0.2s; }
+        .stagger-5 { animation-delay: 0.25s; }
+        .stagger-6 { animation-delay: 0.3s; }
+        .stagger-7 { animation-delay: 0.35s; }
+        .stagger-8 { animation-delay: 0.4s; }
+        .stagger-9 { animation-delay: 0.45s; }
+        .stagger-10 { animation-delay: 0.5s; }
+
+        /* --- NAVIGATION --- */
+        nav {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1.5rem; 
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-grey);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-icon { display: none; }
+
+        .nav-btn:hover, .nav-btn.active {
+            color: var(--primary-red);
+        }
+
+        .nav-btn::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary-red);
+            transition: width 0.3s ease;
+        }
+
+        .nav-btn.active::after, .nav-btn:hover::after {
+            width: 100%;
+        }
+
+        .discord-btn-nav {
+            background-color: #5865F2;
+            color: white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: transform 0.2s;
+        }
+        
+        .discord-btn-nav:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(88, 101, 242, 0.4);
+        }
+
+        /* --- MAIN CONTENT AREAS --- */
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            min-height: 80vh;
+        }
+
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        /* --- CARDS & WIDGETS --- */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(204, 0, 0, 0.1);
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* --- LEAGUE SPECS WIDGET STYLES --- */
+        .league-specs {
+            display: flex;
+            gap: 2rem;
+            position: relative;
+            z-index: 2;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 1.5rem;
+            width: 100%;
+        }
+        
+        .league-spec-item {
+            text-align: left;
+        }
+        
+        .league-spec-item:not(:first-child) {
+            border-left: 1px solid rgba(255,255,255,0.2);
+            padding-left: 2rem;
+        }
+
+        .spec-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .spec-value {
+            font-size: 1.4rem;
+            font-weight: 800;
+            font-family: 'Russo One', sans-serif;
+        }
+
+        /* --- STAT LEADERS WIDGET --- */
+        .stat-leaders-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-leader-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid #eee;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+            height: 100%;
+            min-height: 200px;
+            width: 100%; 
+        }
+
+        .stat-leader-card:hover {
+            transform: translateY(-12px) scale(1.05);
+            border-color: var(--primary-red);
+            box-shadow: 0 20px 40px rgba(204, 0, 0, 0.15);
+            z-index: 2;
+        }
+
+        .stat-leader-card:hover .stat-icon {
+            transform: scale(1.3) rotate(-5deg);
+            color: var(--hover-red);
+            opacity: 1;
+        }
+
+        .stat-icon {
+            font-size: 1.5rem;
+            color: var(--primary-red);
+            margin-bottom: 0.8rem;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .stat-player {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--text-black);
+            margin-bottom: 0.2rem;
+            line-height: 1.2;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+            padding: 0 5px;
+        }
+
+        .stat-value {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--primary-red);
+            line-height: 1;
+            margin: 0.5rem 0;
+        }
+
+        .stat-category {
+            font-size: 0.75rem;
+            color: var(--text-grey);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.2rem;
+        }
+
+        .stat-team {
+            font-size: 0.8rem;
+            color: #888;
+            font-weight: 600;
+        }
+
+        /* --- SCHEDULE STYLES --- */
+        .schedule-card {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(0,0,0,0.05);
+            margin-bottom: 3rem;
+            transition: transform 0.3s ease;
+        }
+
+        .week-header {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--text-black);
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .week-header i {
+            color: var(--primary-red);
+        }
+
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 4rem; 
+        }
+
+        .game-column-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-grey);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .game-column-title::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--primary-red);
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .matchup-item {
+            display: grid; 
+            grid-template-columns: 1fr 40px 1fr;
+            align-items: center;
+            padding: 1rem 0.8rem;
+            background-color: white;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid #eee;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .matchup-item::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--primary-red);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .matchup-item:hover {
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 8px 20px rgba(204, 0, 0, 0.1);
+            border-color: rgba(204, 0, 0, 0.1);
+        }
+
+        .matchup-item:hover::after {
+            opacity: 1;
+        }
+
+        .team-name {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--text-black);
+            white-space: nowrap; 
+            overflow: hidden;
+            text-overflow: ellipsis; 
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .matchup-item .team-name:first-child {
+            text-align: right;
+            padding-right: 10px;
+        }
+
+        .matchup-item .team-name:last-child {
+            text-align: left;
+            padding-left: 10px;
+        }
+        
+        .team-record {
+            font-weight: 500;
+            font-size: 0.8em;
+            color: #888;
+            margin-left: 4px;
+            text-transform: none; 
+        }
+
+        .matchup-item .team-name:first-child .team-record {
+            margin-left: 0;
+            margin-right: 4px;
+        }
+        
+        .at-separator {
+            font-size: 0.8rem; 
+            color: white;
+            font-weight: 800;
+            background: #222;
+            padding: 4px 0;
+            border-radius: 6px;
+            width: 30px; 
+            text-align: center;
+            margin: 0 auto; 
+            display: block;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* List styling for Rules */
+        .rules-list {
+            list-style: none;
+            padding-left: 0.5rem;
+        }
+
+        .rules-list li {
+            margin-bottom: 0.5rem;
+            color: var(--text-grey);
+            position: relative;
+            padding-left: 1.2rem;
+        }
+
+        .rules-list li::before {
+            content: '•';
+            color: var(--primary-red);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary-red);
+        }
+
+        /* --- BUTTONS --- */
+        .cta-btn {
+            display: inline-block;
+            background-color: var(--primary-red);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(204, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .cta-btn:hover {
+            background-color: var(--hover-red);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(204, 0, 0, 0.4);
+        }
+        
+        .cta-btn i {
+            margin-right: 8px;
+        }
+
+        /* --- TABLES --- */
+        .table-container {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 2rem;
+        }
+
+        .conference-header {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-black);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+
+        th {
+            background: #f8f8f8;
+            padding: 1.2rem;
+            text-align: left;
+            font-weight: 700;
+            color: var(--text-grey);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        td {
+            padding: 1rem 1.2rem;
+            border-bottom: 1px solid #eee;
+            font-weight: 500;
+            vertical-align: middle;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background-color: #fafafa;
+        }
+        
+        /* Team Link Styling */
+        .team-link {
+            color: inherit;
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.2s;
+            cursor: pointer;
+        }
+        .team-link:hover {
+            color: var(--primary-red);
+            text-decoration: underline;
+        }
+
+        .win { color: #00aa00; font-weight: 700; }
+        .loss { color: #cc0000; font-weight: 700; }
+
+        /* Rank Badges */
+        .rank-badge {
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 0.8rem;
+            font-weight: 700;
+            background: #eee;
+            color: #555;
+        }
+
+        /* Playoff Zone Styling */
+        .playoff-row {
+            background-color: rgba(255, 245, 245, 0.8);
+        }
+        .playoff-row td:first-child {
+            box-shadow: inset 4px 0 0 var(--primary-red);
+        }
+
+        /* Win % Bar */
+        .pct-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .pct-bar-bg {
+            width: 50px;
+            height: 6px;
+            background: #eee;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .pct-bar-fill {
+            height: 100%;
+            background: var(--primary-red);
+            border-radius: 10px;
+        }
+
+        /* --- IFRAME CONTAINER --- */
+        .sheet-wrapper {
+            width: 100%;
+            height: 85vh;
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            border: 1px solid #eee;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--bg-white);
+            padding: 3rem 1rem;
+            text-align: center;
+            border-top: 1px solid #eee;
+            margin-top: 4rem;
+        }
+        
+        /* --- TEAM PROFILE STYLES --- */
+        .team-profile-header {
+            padding: 3rem;
+            border-radius: 16px;
+            color: white;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .team-profile-name {
+            font-family: 'Russo One', sans-serif;
+            font-size: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .team-owner {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-top: 5px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .roster-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .roster-item {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .roster-item::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--primary-red);
+            border-radius: 50%;
+        }
+
+        /* --- RESPONSIVE TYPOGRAPHY & LAYOUTS --- */
+        .welcome-header {
+            font-family: 'Inter', sans-serif;
+            font-weight: 800;
+            text-transform: uppercase;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            color: white;
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            text-align: left;
+        }
+
+        .champion-name {
+            font-weight: 900;
+            line-height: 0.9;
+            text-transform: uppercase;
+            font-style: italic;
+            padding-right: 20px;
+            font-size: clamp(2rem, 5vw, 2.8rem);
+        }
+
+        .gotw-matchup-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 600px;
+            gap: 20px;
+        }
+
+        .welcome-buttons-container {
+            display: flex;
+            gap: 1rem;
+            position: relative;
+            z-index: 2;
+            flex-wrap: wrap;
+        }
+
+        /* --- MOBILE RESPONSIVENESS --- */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                gap: 0.5rem;
+                padding: 0.5rem 1rem;
+            }
+
+            .nav-menu {
+                flex-wrap: nowrap;
+                justify-content: center;
+                gap: 0.5rem;
+                width: auto;
+                flex: 1;
+            }
+
+            .nav-text {
+                display: none;
+            }
+
+            .nav-icon {
+                display: block;
+                font-size: 1.2rem;
+            }
+
+            .nav-btn {
+                font-size: 1rem;
+                padding: 0;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                color: var(--text-grey);
+                background-color: transparent;
+            }
+
+            .nav-btn.active {
+                background-color: rgba(204, 0, 0, 0.1);
+                color: var(--primary-red);
+                font-weight: bold;
+            }
+
+            .nav-btn::after {
+                display: none;
+            }
+
+            .discord-btn-nav {
+                padding: 0.5rem;
+                font-size: 0;
+                width: 36px;
+                height: 36px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+            }
+            .discord-btn-nav i {
+                font-size: 1.2rem;
+            }
+
+            .grid-container {
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .stat-leaders-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.8rem;
+            }
+
+            .stat-leader-card {
+                padding: 1rem 0.5rem;
+                min-height: 160px;
+            }
+
+            .stat-player {
+                font-size: 0.85rem;
+            }
+
+            .stat-value {
+                font-size: 1.8rem;
+            }
+
+            .stat-category {
+                font-size: 0.65rem;
+            }
+
+            .schedule-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .card {
+                padding: 1.5rem 1rem;
+                text-align: center;
+            }
+            
+            .card h1, .card h2, .card p {
+                text-align: center;
+            }
+
+            .gotw-matchup-row {
+                flex-direction: row;
+                gap: 2px; /* Condensed gap on mobile */
+            }
+            
+            .gotw-matchup-row > div {
+                min-width: 0 !important;
+            }
+
+            .gotw-matchup-row .team-name {
+                font-size: 0.75rem; /* Smaller text on mobile */
+            }
+            
+            .gotw-matchup-row .vs-badge {
+                width: 24px;  /* Shrink @ badge size */
+                height: 24px;
+                font-size: 0.9rem;
+                margin: 0;
+            }
+
+            .table-container {
+                overflow-x: auto;
+            }
+
+            .matchup-item {
+                font-size: 0.85rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .week-header {
+                font-size: 1.3rem;
+                justify-content: center;
+            }
+            
+            .welcome-header {
+                justify-content: center;
+            }
+            
+            .btn-text {
+                display: none;
+            }
+            
+            .cta-btn i {
+                margin-right: 0;
+            }
+            
+            .cta-btn {
+                padding: 12px;
+                font-size: 1.3rem;
+            }
+            
+            .welcome-buttons-container {
+                justify-content: center;
+            }
+            
+            .conference-header {
+                justify-content: flex-start;
+            }
+            
+            .league-specs {
+                gap: 1rem;
+                justify-content: space-between;
+            }
+            
+            .league-spec-item:not(:first-child) {
+                padding-left: 1rem;
+            }
+            
+            .spec-value {
+                font-size: 1.1rem;
+            }
+            
+            .spec-label {
+                font-size: 0.65rem;
+            }
+            
+            #rules .card, #rules .card h2, #rules .card ul {
+                text-align: left;
+            }
+            
+            img, iframe {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="nav-container">
+            <!-- Logo Removed -->
+            <ul class="nav-menu">
+                <li>
+                    <button class="nav-btn active" onclick="switchTab('home')">
+                        <i class="fas fa-home nav-icon"></i>
+                        <span class="nav-text">Home</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="nav-btn" onclick="switchTab('standings')">
+                        <i class="fas fa-list-ol nav-icon"></i>
+                        <span class="nav-text">Standings</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="nav-btn" onclick="switchTab('schedule')">
+                        <i class="fas fa-calendar-alt nav-icon"></i>
+                        <span class="nav-text">Schedule</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="nav-btn" onclick="switchTab('stats')">
+                        <i class="fas fa-chart-bar nav-icon"></i>
+                        <span class="nav-text">Stats</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="nav-btn" onclick="switchTab('legacy')">
+                        <i class="fas fa-history nav-icon"></i>
+                        <span class="nav-text">Legacy</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="nav-btn" onclick="switchTab('rules')">
+                        <i class="fas fa-book nav-icon"></i>
+                        <span class="nav-text">Rules</span>
+                    </button>
+                </li>
+            </ul>
+            <!-- Replace 'YOUR_DISCORD_INVITE_HERE' with your actual link (e.g., https://discord.gg/abc1234) -->
+            <a href="https://discord.gg/nbll" target="_blank" class="discord-btn-nav"><i class="fab fa-discord"></i> <span class="nav-text">Join Server</span></a>
+        </div>
+    </nav>
+
+    <main>
+        <!-- HOME SECTION -->
+        <section id="home" class="page-section active">
+            <div class="grid-container" style="grid-template-columns: 2fr 1fr;">
+                <!-- WELCOME WIDGET (REVAMPED) -->
+                <div class="card" style="background: radial-gradient(circle at 90% 10%, #ff4d4d 0%, transparent 40%), radial-gradient(circle at 0% 100%, #4a0000 0%, transparent 40%), linear-gradient(135deg, #cc0000, #800000); color: white; position: relative; overflow: hidden; border: 1px solid #ff3333; display: flex; flex-direction: column; justify-content: center; align-items: flex-start;">
+                    
+                    <!-- Updated Class for Responsive Text with Icon Removed -->
+                    <h1 class="welcome-header">
+                        Welcome to NBLL
+                    </h1>
+                    <p style="color: #ffe6e6; font-size: 1.1rem; margin-bottom: 2rem; position: relative; z-index: 2; max-width: 90%; font-weight: 500; text-align: left;">
+                        Your hub for all things NBLL. Find constantly updated standings, schedules, stats and legacy embeds, etc.
+                    </p>
+                    
+                    <!-- REPLACED BUTTONS WITH LEAGUE QUICK SPECS -->
+                    <div class="league-specs">
+                        
+                        <div class="league-spec-item">
+                            <div class="spec-label">Format</div>
+                            <div class="spec-value">4v4</div>
+                        </div>
+
+                        <div class="league-spec-item">
+                            <div class="spec-label">Region</div>
+                            <div class="spec-value">NA East</div>
+                        </div>
+
+                        <div class="league-spec-item">
+                            <div class="spec-label">Teams</div>
+                            <div class="spec-value">14</div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- REPLACED: "LEAGUE STATUS HUB" WIDGET -->
+                <div class="card" style="background: #0f0f0f; border: 1px solid #222; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-start; min-height: 200px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                    <!-- Ambient Glow -->
+                    <div style="position: absolute; top: -50%; right: -50%; width: 100%; height: 100%; background: radial-gradient(circle, rgba(0, 255, 0, 0.05) 0%, transparent 70%); pointer-events: none;"></div>
+
+                    <!-- Header -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                        <div style="font-family: 'Russo One', sans-serif; text-transform: uppercase; color: #fff; letter-spacing: 1px; font-size: 1.2rem;">
+                            <i class="fas fa-signal" style="color: var(--primary-red); margin-right: 8px;"></i> Status
+                        </div>
+                        <div style="background: rgba(255, 255, 255, 0.1); padding: 4px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: 700; color: #aaa;">
+                            S11
+                        </div>
+                    </div>
+
+                    <!-- Status Items (Added text-align: left to fix mobile) -->
+                    <div style="display: flex; flex-direction: column; gap: 1rem; text-align: left;">
+                        
+                        <!-- Phase -->
+                        <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 8px; border-left: 4px solid var(--primary-red);">
+                            <div style="color: #888; font-size: 0.75rem; text-transform: uppercase; font-weight: 700; margin-bottom: 4px;">Current Phase</div>
+                            <div style="color: white; font-weight: 700; font-size: 1.1rem;">Regular Season <span style="font-weight: 400; color: #666; font-size: 0.9rem;">(Week 4)</span></div>
+                        </div>
+
+                        <!-- Transactions -->
+                        <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div style="color: #888; font-size: 0.75rem; text-transform: uppercase; font-weight: 700;">Signings & Trades</div>
+                                <div style="color: white; font-weight: 700; font-size: 1rem;">On</div>
+                            </div>
+                            <div style="width: 12px; height: 12px; background: #00ff00; border-radius: 50%; box-shadow: 0 0 10px #00ff00;"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEW: STAT LEADERS WIDGET -->
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-top: 2rem; margin-bottom: 1rem;">
+                <h2 style="margin: 0;">Season Leaders</h2>
+                <span style="color: var(--text-grey); font-size: 0.8rem; font-weight: 600;">Last Updated: 12/15</span>
+            </div>
+            
+            <div class="stat-leaders-grid">
+                <!-- POINTS -->
+                <div class="stat-leader-card stagger-1 animate-in">
+                    <div class="stat-icon"><i class="fas fa-bullseye"></i></div> <!-- Changed to Bullseye for Points -->
+                    <div class="stat-player">Soulz</div>
+                    <div class="stat-value">542</div>
+                    <div class="stat-category">Total Points</div>
+                    <div class="stat-team">MIL</div>
+                </div>
+                <!-- REBOUNDS -->
+                <div class="stat-leader-card stagger-2 animate-in">
+                    <div class="stat-icon"><i class="fas fa-hands"></i></div> <!-- Two Hands Icon -->
+                    <div class="stat-player">Marsh</div>
+                    <div class="stat-value">27</div>
+                    <div class="stat-category">Total Rebounds</div>
+                    <div class="stat-team">TOR</div>
+                </div>
+                <!-- ASSISTS -->
+                <div class="stat-leader-card stagger-3 animate-in">
+                    <div class="stat-icon"><i class="fas fa-hands-helping"></i></div>
+                    <div class="stat-player">Dre</div>
+                    <div class="stat-value">172</div>
+                    <div class="stat-category">Total Assists</div>
+                    <div class="stat-team">MIL</div>
+                </div>
+                <!-- STEALS -->
+                <div class="stat-leader-card stagger-4 animate-in">
+                    <div class="stat-icon"><i class="fas fa-hand-paper"></i></div>
+                    <div class="stat-player">Marsh</div>
+                    <div class="stat-value">32</div>
+                    <div class="stat-category">Total Steals</div>
+                    <div class="stat-team">TOR</div>
+                </div>
+            </div>
+
+            <!-- "GAME OF THE WEEK" WIDGET -->
+            <h2 style="margin-bottom: 1rem; margin-top: 2rem;">Featured Matchup</h2>
+            <div class="card" style="background: white; border: 1px solid #eee; overflow: hidden; padding: 0;">
+                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem;">
+                    
+                    <!-- Header Tag -->
+                    <div style="background-color: var(--primary-red); color: white; font-weight: 800; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1.5rem;">
+                        Game of the Week
+                    </div>
+
+                    <!-- Matchup Row with New Class -->
+                    <div class="gotw-matchup-row">
+                        
+                        <!-- Team 1 -->
+                        <div style="text-align: center; flex: 1; min-width: 120px;">
+                            <div style="font-size: 1.5rem; font-weight: 900; color: var(--text-black); text-transform: uppercase; line-height: 1.2;">
+                                Toronto<br><span style="color: #ce1141;">Raptors</span>
+                            </div>
+                            <div style="color: var(--text-grey); font-weight: 600; margin-top: 5px;">(6-1)</div>
+                        </div>
+
+                        <!-- VS Badge (Updated Font for @ symbol) -->
+                        <div class="vs-badge" style="background: #111; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1.4rem; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 2; flex-shrink: 0;">
+                            @
+                        </div>
+
+                        <!-- Team 2 -->
+                        <div style="text-align: center; flex: 1; min-width: 120px;">
+                            <div style="font-size: 1.5rem; font-weight: 900; color: var(--text-black); text-transform: uppercase; line-height: 1.2;">
+                                LA<br><span style="color: #552583;">Lakers</span>
+                            </div>
+                            <div style="color: var(--text-grey); font-weight: 600; margin-top: 5px;">(4-2)</div>
+                        </div>
+
+                    </div>
+                </div>
+                
+                <!-- Bottom Action Bar -->
+                <a href="#" onclick="switchTab('schedule'); return false;" style="display: block; background: #f8f9fa; padding: 15px; text-align: center; color: var(--text-grey); font-weight: 700; text-decoration: none; border-top: 1px solid #eee; transition: background 0.2s;">
+                    View Full Schedule &rarr;
+                </a>
+            </div>
+        </section>
+
+        <!-- STANDINGS SECTION -->
+        <section id="standings" class="page-section">
+            <h1>League Standings</h1>
+
+            <!-- Western Conference -->
+            <div class="conference-header"><span style="font-family: 'Russo One', sans-serif; color: var(--primary-red); font-size: 1.2em; margin-right: 10px;">W</span> Western Conference</div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 60px;">Rank</th>
+                            <th>Team</th>
+                            <th>W</th>
+                            <th>L</th>
+                            <th>Win %</th>
+                            <th>GB</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Top 4: Playoff Zone -->
+                        <tr class="playoff-row stagger-1 animate-in" onclick="openTeamPage('clippers')">
+                            <td><div class="rank-badge rank-1">1</div></td>
+                            <td><span class="team-link">Clippers</span></td>
+                            <td class="win">6</td><td>0</td>
+                            <td><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 100%;"></div></div> 1.000</div></td>
+                            <td>-</td>
+                        </tr>
+                        <tr class="playoff-row stagger-2 animate-in" onclick="openTeamPage('mavs')">
+                            <td><div class="rank-badge rank-2">2</div></td>
+                            <td><span class="team-link">Mavs</span></td>
+                            <td class="win">5</td><td>1</td>
+                            <td><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 83%;"></div></div> .833</div></td>
+                            <td>1.0</td>
+                        </tr>
+                        <tr class="playoff-row stagger-3 animate-in" onclick="openTeamPage('lakers')">
+                            <td><div class="rank-badge rank-3">3</div></td>
+                            <td><span class="team-link">Lakers</span></td>
+                            <td class="win">4</td><td>2</td>
+                            <td><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 66%;"></div></div> .667</div></td>
+                            <td>2.0</td>
+                        </tr>
+                        <tr class="playoff-row stagger-4 animate-in" onclick="openTeamPage('nuggets')">
+                            <td><div class="rank-badge">4</div></td>
+                            <td><span class="team-link">Nuggets</span></td>
+                            <td class="win">4</td><td>2</td>
+                            <td><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 66%;"></div></div> .667</div></td>
+                            <td>2.0</td>
+                        </tr>
+                        <!-- Bottom 3: Outside Playoffs -->
+                        <tr class="stagger-5 animate-in" onclick="openTeamPage('grizzlies')">
+                            <td><div class="rank-badge">5</div></td>
+                            <td><span class="team-link">Grizzlies</span></td>
+                            <td class="win">1</td><td>5</td>
+                            <td><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 16%;"></div></div> .167</div></td>
+                            <td>5.0</td>
+                        </tr>
+                        <tr class="stagger-6 animate-in" onclick="openTeamPage('wolves')">
+                            <td><div class="rank-badge">6</div></td>
+                            <td><span class="team-link">Timberwolves</span></td>
+                            <td class="win">0</td><td>6</td>
+                            <td><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 0%;"></div></div> .000</div></td>
+                            <td>6.0</td>
+                        </tr>
+                        <tr class="stagger-7 animate-in" onclick="openTeamPage('thunder')">
+                            <td><div class="rank-badge">7</div></td>
+                            <td><span class="team-link">Thunder</span></td>
+                            <td class="win">0</td><td>7</td>
+                            <td><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 0%;"></div></div> .000</div></td>
+                            <td>6.5</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Eastern Conference -->
+            <div class="conference-header"><span style="font-family: 'Russo One', sans-serif; color: var(--primary-red); font-size: 1.2em; margin-right: 10px;">E</span> Eastern Conference</div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 60px;">Rank</th>
+                            <th>Team</th>
+                            <th>W</th>
+                            <th>L</th>
+                            <th>Win %</th>
+                            <th>GB</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Top 4: Playoff Zone -->
+                        <tr class="playoff-row stagger-1 animate-in">
+                            <td><div class="rank-badge rank-1">1</div></td>
+                            <td><span style="font-weight: 700;">Raptors</span></td>
+                            <td class="win">6</td><td>1</td>
+                            <td><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 85%;"></div></div> .857</div></td>
+                            <td>-</td>
+                        </tr>
+                        <tr class="playoff-row stagger-2 animate-in">
+                            <td><div class="rank-badge rank-2">2</div></td>
+                            <td><span style="font-weight: 600;">Bucks</span></td>
+                            <td class="win">5</td><td>2</td>
+                            <td><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 71%;"></div></div> .714</div></td>
+                            <td>1.0</td>
+                        </tr>
+                        <tr class="playoff-row stagger-3 animate-in">
+                            <td><div class="rank-badge rank-3">3</div></td>
+                            <td><span style="font-weight: 600;">Bulls</span></td>
+                            <td class="win">4</td><td>2</td>
+                            <td><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 66%;"></div></div> .667</div></td>
+                            <td>1.5</td>
+                        </tr>
+                        <tr class="playoff-row stagger-4 animate-in">
+                            <td><div class="rank-badge">4</div></td>
+                            <td>Magic</td>
+                            <td class="win">3</td><td>3</td>
+                            <td><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 50%;"></div></div> .500</div></td>
+                            <td>2.5</td>
+                        </tr>
+                        <!-- Bottom 3: Outside Playoffs -->
+                        <tr class="stagger-5 animate-in">
+                            <td><div class="rank-badge">5</div></td>
+                            <td>Heat</td>
+                            <td class="win">3</td><td>3</td>
+                            <td><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 50%;"></div></div> .500</div></td>
+                            <td>2.5</td>
+                        </tr>
+                        <tr class="stagger-6 animate-in">
+                            <td><div class="rank-badge">6</div></td>
+                            <td>Celtics</td>
+                            <td class="win">2</td><td>5</td>
+                            <td><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 28%;"></div></div> .286</div></td>
+                            <td>4.0</td>
+                        </tr>
+                        <tr class="stagger-7 animate-in">
+                            <td><div class="rank-badge">7</div></td>
+                            <td>Hawks</td>
+                            <td class="win">1</td><td>5</td>
+                            <td><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 16%;"></div></div> .167</div></td>
+                            <td>4.5</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <!-- TEAM PROFILE SECTION (HIDDEN BY DEFAULT) -->
+        <section id="team-profile" class="page-section">
+            <button class="cta-btn" onclick="switchTab('standings')" style="margin-bottom: 2rem; background: white; color: var(--text-black); border: 1px solid #ddd; padding: 10px 20px; font-size: 0.9rem;">
+                <i class="fas fa-arrow-left"></i> Back to Standings
+            </button>
+            
+            <div id="team-profile-content">
+                <!-- Content will be injected via JS -->
+            </div>
+        </section>
+
+        <!-- STATS SECTION (Google Sheet) -->
+        <section id="stats" class="page-section">
+            <h1>Player Statistics</h1>
+            <p style="margin-bottom: 1rem; color: var(--text-grey);">Live updates from the stat sheet.</p>
+            <div class="sheet-wrapper">
+                <!-- UPDATED: Permanently linked to your Google Sheet -->
+                <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQ40oM4VxQKSbZoD6NQXO3vb9GYVP6bQvZczPVAYaw-6lcLsGlWIdEhJUshk2lOe5wp2flh3QsLP4As/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
+            </div>
+        </section>
+
+        <!-- SCHEDULE SECTION -->
+        <section id="schedule" class="page-section">
+            <h1>Season Schedule</h1>
+            
+            <!-- Week 4 -->
+            <div class="schedule-card animate-in stagger-1">
+                <div class="week-header"><i class="far fa-calendar-alt"></i> NBLL S11 Week 4</div>
+                
+                <div class="schedule-grid">
+                    <!-- Game 1 Column -->
+                    <div class="game-column">
+                        <div class="game-column-title">Game 1</div>
+                        
+                        <div class="matchup-item stagger-1 animate-in"><span class="team-name"><span class="team-record">(5-1)</span> Mavs</span> <span class="at-separator">@</span> <span class="team-name">Lakers <span class="team-record">(4-2)</span></span></div>
+                        <div class="matchup-item stagger-2 animate-in"><span class="team-name"><span class="team-record">(0-6)</span> Wolves</span> <span class="at-separator">@</span> <span class="team-name">Bulls <span class="team-record">(4-2)</span></span></div>
+                        <div class="matchup-item stagger-3 animate-in"><span class="team-name"><span class="team-record">(6-0)</span> Clippers</span> <span class="at-separator">@</span> <span class="team-name">Heat <span class="team-record">(3-3)</span></span></div>
+                        <div class="matchup-item stagger-4 animate-in"><span class="team-name"><span class="team-record">(2-5)</span> Celtics</span> <span class="at-separator">@</span> <span class="team-name">Bucks <span class="team-record">(5-2)</span></span></div>
+                        <div class="matchup-item stagger-5 animate-in"><span class="team-name"><span class="team-record">(0-7)</span> Thunder</span> <span class="at-separator">@</span> <span class="team-name">Raptors <span class="team-record">(6-1)</span></span></div>
+                        <div class="matchup-item stagger-6 animate-in"><span class="team-name"><span class="team-record">(1-5)</span> Grizzlies</span> <span class="at-separator">@</span> <span class="team-name">Hawks <span class="team-record">(1-5)</span></span></div>
+                        <div class="matchup-item stagger-7 animate-in"><span class="team-name"><span class="team-record">(4-2)</span> Nuggets</span> <span class="at-separator">@</span> <span class="team-name">Magic <span class="team-record">(3-3)</span></span></div>
+                    </div>
+
+                    <!-- Game 2 Column -->
+                    <div class="game-column">
+                        <div class="game-column-title">Game 2</div>
+
+                        <div class="matchup-item stagger-1 animate-in"><span class="team-name"><span class="team-record">(3-3)</span> Magic</span> <span class="at-separator">@</span> <span class="team-name">Thunder <span class="team-record">(0-7)</span></span></div>
+                        <div class="matchup-item stagger-2 animate-in"><span class="team-name"><span class="team-record">(5-2)</span> Bucks</span> <span class="at-separator">@</span> <span class="team-name">Grizzlies <span class="team-record">(1-5)</span></span></div>
+                        <div class="matchup-item stagger-3 animate-in"><span class="team-name"><span class="team-record">(3-3)</span> Heat</span> <span class="at-separator">@</span> <span class="team-name">Wolves <span class="team-record">(0-6)</span></span></div>
+                        <div class="matchup-item stagger-4 animate-in"><span class="team-name"><span class="team-record">(6-1)</span> Raptors</span> <span class="at-separator">@</span> <span class="team-name">Clippers <span class="team-record">(6-0)</span></span></div>
+                        <div class="matchup-item stagger-5 animate-in"><span class="team-name"><span class="team-record">(4-2)</span> Lakers</span> <span class="at-separator">@</span> <span class="team-name">Nuggets <span class="team-record">(4-2)</span></span></div>
+                        <div class="matchup-item stagger-6 animate-in"><span class="team-name"><span class="team-record">(1-5)</span> Hawks</span> <span class="at-separator">@</span> <span class="team-name">Celtics <span class="team-record">(2-5)</span></span></div>
+                        <div class="matchup-item stagger-7 animate-in"><span class="team-name"><span class="team-record">(4-2)</span> Bulls</span> <span class="at-separator">@</span> <span class="team-name">Mavs <span class="team-record">(5-1)</span></span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Week 3 -->
+            <div class="schedule-card animate-in stagger-2">
+                <div class="week-header"><i class="far fa-calendar-alt"></i> NBLL S11 Week 3</div>
+                
+                <div class="schedule-grid">
+                    <!-- Game 1 Column -->
+                    <div class="game-column">
+                        <div class="game-column-title">Game 1</div>
+                        
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(4-2)</span> Lakers</span> <span class="at-separator">@</span> <span class="team-name">Celtics <span class="team-record">(2-5)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(1-5)</span> Grizzlies</span> <span class="at-separator">@</span> <span class="team-name">Magic <span class="team-record">(3-3)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(4-2)</span> Nuggets</span> <span class="at-separator">@</span> <span class="team-name">Bulls <span class="team-record">(4-2)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(6-1)</span> Raptors</span> <span class="at-separator">@</span> <span class="team-name">Heat <span class="team-record">(3-3)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(5-1)</span> Mavs</span> <span class="at-separator">@</span> <span class="team-name">Wolves <span class="team-record">(0-6)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(1-5)</span> Hawks</span> <span class="at-separator">@</span> <span class="team-name">Bucks <span class="team-record">(5-2)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(6-0)</span> Clippers</span> <span class="at-separator">@</span> <span class="team-name">Thunder <span class="team-record">(0-7)</span></span></div>
+                    </div>
+
+                    <!-- Game 2 Column -->
+                    <div class="game-column">
+                        <div class="game-column-title">Game 2</div>
+
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(4-2)</span> Bulls</span> <span class="at-separator">@</span> <span class="team-name">Lakers <span class="team-record">(4-2)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(3-3)</span> Magic</span> <span class="at-separator">@</span> <span class="team-name">Hawks <span class="team-record">(1-5)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(0-7)</span> Thunder</span> <span class="at-separator">@</span> <span class="team-name">Nuggets <span class="team-record">(4-2)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(5-2)</span> Bucks</span> <span class="at-separator">@</span> <span class="team-name">Raptors <span class="team-record">(6-1)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(2-5)</span> Celtics</span> <span class="at-separator">@</span> <span class="team-name">Mavs <span class="team-record">(5-1)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(3-3)</span> Heat</span> <span class="at-separator">@</span> <span class="team-name">Grizzlies <span class="team-record">(1-5)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(0-6)</span> Wolves</span> <span class="at-separator">@</span> <span class="team-name">Clippers <span class="team-record">(6-0)</span></span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Week 2 -->
+            <div class="schedule-card animate-in stagger-3">
+                <div class="week-header"><i class="far fa-calendar-alt"></i> NBLL S11 Week 2</div>
+                
+                <div class="schedule-grid">
+                    <!-- Game 1 Column -->
+                    <div class="game-column">
+                        <div class="game-column-title">Game 1</div>
+                        
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(0-6)</span> Wolves</span> <span class="at-separator">@</span> <span class="team-name">Celtics <span class="team-record">(2-5)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(6-1)</span> Raptors</span> <span class="at-separator">@</span> <span class="team-name">Magic <span class="team-record">(3-3)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(6-0)</span> Clippers</span> <span class="at-separator">@</span> <span class="team-name">Bulls <span class="team-record">(4-2)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(4-2)</span> Nuggets</span> <span class="at-separator">@</span> <span class="team-name">Heat <span class="team-record">(3-3)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(5-2)</span> Bucks</span> <span class="at-separator">@</span> <span class="team-name">Thunder <span class="team-record">(0-7)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(1-5)</span> Hawks</span> <span class="at-separator">@</span> <span class="team-name">Mavs <span class="team-record">(5-1)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(4-2)</span> Lakers</span> <span class="at-separator">@</span> <span class="team-name">Grizzlies <span class="team-record">(1-5)</span></span></div>
+                    </div>
+
+                    <!-- Game 2 Column -->
+                    <div class="game-column">
+                        <div class="game-column-title">Game 2</div>
+
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(2-5)</span> Celtics</span> <span class="at-separator">@</span> <span class="team-name">Nuggets <span class="team-record">(4-2)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(3-3)</span> Magic</span> <span class="at-separator">@</span> <span class="team-name">Wolves <span class="team-record">(0-6)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(4-2)</span> Bulls</span> <span class="at-separator">@</span> <span class="team-name">Hawks <span class="team-record">(1-5)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(1-5)</span> Grizzlies</span> <span class="at-separator">@</span> <span class="team-name">Raptors <span class="team-record">(6-1)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(0-7)</span> Thunder</span> <span class="at-separator">@</span> <span class="team-name">Lakers <span class="team-record">(4-2)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(5-1)</span> Mavs</span> <span class="at-separator">@</span> <span class="team-name">Clippers <span class="team-record">(6-0)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(3-3)</span> Heat</span> <span class="at-separator">@</span> <span class="team-name">Bucks <span class="team-record">(5-2)</span></span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Week 1 -->
+            <div class="schedule-card animate-in stagger-4">
+                <div class="week-header"><i class="far fa-calendar-alt"></i> NBLL S11 Week 1</div>
+                
+                <div class="schedule-grid">
+                    <!-- Game 1 Column -->
+                    <div class="game-column">
+                        <div class="game-column-title">Game 1</div>
+                        
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(3-3)</span> Magic</span> <span class="at-separator">@</span> <span class="team-name">Celtics <span class="team-record">(2-5)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(3-3)</span> Heat</span> <span class="at-separator">@</span> <span class="team-name">Bulls <span class="team-record">(4-2)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(0-7)</span> Thunder</span> <span class="at-separator">@</span> <span class="team-name">Nuggets <span class="team-record">(4-2)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(1-5)</span> Grizzlies</span> <span class="at-separator">@</span> <span class="team-name">Mavs <span class="team-record">(5-1)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(6-0)</span> Clippers</span> <span class="at-separator">@</span> <span class="team-name">Bucks <span class="team-record">(5-2)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(6-1)</span> Raptors</span> <span class="at-separator">@</span> <span class="team-name">Lakers <span class="team-record">(4-2)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(1-5)</span> Hawks</span> <span class="at-separator">@</span> <span class="team-name">Wolves <span class="team-record">(0-6)</span></span></div>
+                    </div>
+
+                    <!-- Game 2 Column -->
+                    <div class="game-column">
+                        <div class="game-column-title">Game 2</div>
+
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(5-1)</span> Mavs</span> <span class="at-separator">@</span> <span class="team-name">Nuggets <span class="team-record">(4-2)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(4-2)</span> Bulls</span> <span class="at-separator">@</span> <span class="team-name">Grizzlies <span class="team-record">(1-5)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(5-2)</span> Bucks</span> <span class="at-separator">@</span> <span class="team-name">Magic <span class="team-record">(3-3)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(2-5)</span> Celtics</span> <span class="at-separator">@</span> <span class="team-name">Heat <span class="team-record">(3-3)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(0-6)</span> Wolves</span> <span class="at-separator">@</span> <span class="team-name">Clippers <span class="team-record">(6-0)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(0-7)</span> Thunder</span> <span class="at-separator">@</span> <span class="team-name">Raptors <span class="team-record">(6-1)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(4-2)</span> Lakers</span> <span class="at-separator">@</span> <span class="team-name">Hawks <span class="team-record">(1-5)</span></span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RULES SECTION -->
+        <section id="rules" class="page-section">
+            <h1>NBLL Rules</h1>
+            <div class="grid-container">
+                <!-- Server Rules -->
+                <div class="card stagger-1 animate-in">
+                    <h2><i class="fab fa-discord" style="color: var(--primary-red);"></i> Server Rules</h2>
+                    <ul class="rules-list">
+                        <li>No NSFW content</li>
+                        <li>No advertising or promoting</li>
+                        <li>No spamming</li>
+                        <li>User information must remain confidential</li>
+                        <li>Follow the Discord Community Guidelines</li>
+                    </ul>
+                </div>
+
+                <!-- Franchise Rules -->
+                <div class="card stagger-2 animate-in">
+                    <h2><i class="fas fa-users" style="color: var(--primary-red);"></i> Franchise Rules</h2>
+                    <ul class="rules-list">
+                        <li>You may only play on 1 team per schedule release</li>
+                        <li>No loans</li>
+                        <li>Leaving the server to bypass demand cooldown results in suspension</li>
+                    </ul>
+                </div>
+
+                <!-- Setup Rules -->
+                <div class="card stagger-3 animate-in">
+                    <h2><i class="fas fa-gamepad" style="color: var(--primary-red);"></i> Setup Rules</h2>
+                    <ul class="rules-list">
+                        <li>4v4 only</li>
+                        <li>Mercy must always be on</li>
+                        <li>All games must be played on North American servers</li>
+                        <li>You must take the ball out of bounds to start the game</li>
+                        <li>A team has 15 minutes to join after the code is sent</li>
+                        <li>No excessive ball skins, effects, or emotes (FOV-changing or large visual effects)</li>
+                        <li>No wasting time by calling unnecessary timeouts</li>
+                    </ul>
+                </div>
+
+                <!-- Cherry Picking & Court Rules -->
+                <div class="card stagger-4 animate-in">
+                    <h2><i class="fas fa-basketball-ball" style="color: var(--primary-red);"></i> Court Rules</h2>
+                    <ul class="rules-list">
+                        <li>No cherry picking or inbounding to opposite half unless:</li>
+                        <li>- The ball went out of bounds</li>
+                        <li>- Off a rebound</li>
+                        <li>- A new quarter has begun</li>
+                        <li>Cherry picking allowed with under 10 seconds left in any quarter</li>
+                    </ul>
+                </div>
+
+                <!-- Timeout Rules -->
+                <div class="card stagger-5 animate-in">
+                    <h2><i class="fas fa-clock" style="color: var(--primary-red);"></i> Timeout Rules</h2>
+                    <ul class="rules-list">
+                        <li>Each team is allowed 3 timeouts</li>
+                        <li>Each timeout lasts 3 minutes</li>
+                        <li>Going over 3 minutes causes timeouts to stack</li>
+                        <li>After a timeout, the ball must be cleared backcourt on the inbound</li>
+                    </ul>
+                </div>
+
+                <!-- PC Checking Rules -->
+                <div class="card stagger-6 animate-in">
+                    <h2><i class="fas fa-desktop" style="color: var(--primary-red);"></i> PC Checking</h2>
+                    <ul class="rules-list">
+                        <li>PC checks may be requested during a game with suspicious behavior clip</li>
+                        <li>You do not need a clip to check for alting</li>
+                        <li>PC checks cannot be called in the 4th quarter unless clip is obvious</li>
+                        <li>PC checks must be conducted by an official PC checker</li>
+                        <li>Leaving after being asked for a PC check results in an FFL</li>
+                        <li>Recently clearing shellbags results in an FFL</li>
+                    </ul>
+                </div>
+
+                <!-- Punishments -->
+                <div class="card stagger-7 animate-in" style="border: 1px solid var(--primary-red);">
+                    <h2><i class="fas fa-ban" style="color: var(--primary-red);"></i> Offenses</h2>
+                    <h3 style="font-size: 1rem; color: var(--text-black); margin-top: 10px;">Suspension-Level</h3>
+                    <ul class="rules-list">
+                        <li>Advertising or sending cheats</li>
+                        <li>Reporting an account to Infinity Sports for ban evasion</li>
+                        <li>Using macros, cheats, FPS uncapping, bootstrappers, or fastflags</li>
+                        <li>Gifting boxes to a player in action</li>
+                    </ul>
+                    <h3 style="font-size: 1rem; color: var(--text-black); margin-top: 10px;">Ban-Level</h3>
+                    <ul class="rules-list">
+                        <li>DDoSing or intentionally interrupting a game</li>
+                        <li>Repeated offenses</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- LEGACY SECTION (Google Sheet) -->
+        <section id="legacy" class="page-section">
+            <h1>Hall of Fame & Legacy</h1>
+            
+            <!-- Coming Soon Message with Loader -->
+            <div style="text-align: center; margin-bottom: 2rem; color: var(--text-grey);">
+                <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: var(--primary-red); margin-bottom: 10px;"></i>
+                <h3 style="font-family: 'Inter', sans-serif; font-weight: 600;">Coming Soon</h3>
+                <p style="font-size: 0.9rem;">Jomz is cooking. Check back later.</p>
+            </div>
+
+            <div class="sheet-wrapper">
+                <!-- PASTE YOUR LEGACY SHEET LINK BELOW -->
+                <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vR6.../pubhtml?widget=true&headers=false"></iframe>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 NBLL - Roblox Basketball League.</p>
+        <div style="margin-top: 10px;">
+            <a href="#" style="color: var(--text-grey); text-decoration: none;">Discord</a>
+        </div>
+    </footer>
+
+    <script>
+        // --- TEAM DATA ---
+        const teams = {
+            'clippers': {
+                name: 'LA Clippers',
+                owner: 'jomz (FO)',
+                color: '#1D428A', // Clippers Blue
+                roster: ['Rahbizzy', 'Bum', 'pansho', 'aesir', 'abel', 'taser', 'junior', 'chxno', 'gmz']
+            },
+            'mavs': {
+                name: 'Dallas Mavericks',
+                owner: 'b3t (FO)',
+                color: '#00538C', // Mavs Blue
+                roster: ['star', '1luv', 'nero', 'Kirazi', 'AJ', 'dave', 'Ghost', 'polar', '1248891831886938206']
+            },
+            'lakers': {
+                name: 'LA Lakers',
+                owner: 'Sinful (FO)',
+                color: '#552583', // Lakers Purple
+                roster: ['3tomo', 'Blade', 'kbv', 'nacho', 'Donny', 'MemeeReborn', 'punkmonk']
+            },
+            'nuggets': {
+                name: 'Denver Nuggets',
+                owner: 'DogeShadowDragon (FO)',
+                color: '#0E2240', // Nuggets Navy/Gold
+                roster: ['Roundy', 'rock', 'morganana', 'talent', 'TREX']
+            },
+            'grizzlies': {
+                name: 'Memphis Grizzlies',
+                owner: 'Kevo (FO)',
+                color: '#5D76A9', // Grizzlies Blue
+                roster: ['Aggro', 'ohio', 'Ken', 'rongone', 'Frq', 'zen']
+            },
+            'wolves': { // mapped from 'timberwolves' in standings
+                name: 'Minnesota Timberwolves',
+                owner: 'GameSmasherYT (FO)',
+                color: '#0C2340', // Wolves Blue
+                roster: ['Axn', 'Jack', 'jc', 'Nyctophobia', 'madnessSX', 'scary', 'boredomm']
+            },
+            'thunder': {
+                name: 'OKC Thunder',
+                owner: 'falcvo (FO)',
+                color: '#007AC1', // Thunder Blue
+                roster: ['Balanitis Bleu', 's', 'Xid']
+            },
+            // Placeholders for East Teams (prevent errors if clicked)
+            'raptors': { name: 'Toronto Raptors', owner: 'TBD', color: '#CE1141', roster: ['Coming Soon'] },
+            'bucks': { name: 'Milwaukee Bucks', owner: 'TBD', color: '#00471B', roster: ['Coming Soon'] },
+            'bulls': { name: 'Chicago Bulls', owner: 'TBD', color: '#CE1141', roster: ['Coming Soon'] },
+            'magic': { name: 'Orlando Magic', owner: 'TBD', color: '#0077C0', roster: ['Coming Soon'] },
+            'heat': { name: 'Miami Heat', owner: 'TBD', color: '#98002E', roster: ['Coming Soon'] },
+            'celtics': { name: 'Boston Celtics', owner: 'TBD', color: '#007A33', roster: ['Coming Soon'] },
+            'hawks': { name: 'Atlanta Hawks', owner: 'TBD', color: '#C1D32F', roster: ['Coming Soon'] }
+        };
+
+        function switchTab(tabId) {
+            // Hide all pages including team profile
+            const sections = document.querySelectorAll('.page-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Show selected page
+            const activeSection = document.getElementById(tabId);
+            if (activeSection) {
+                activeSection.classList.add('active');
+                
+                // Re-trigger animations
+                const animatedElements = activeSection.querySelectorAll('.animate-in');
+                animatedElements.forEach(el => {
+                    el.style.animation = 'none';
+                    el.offsetHeight; 
+                    el.style.animation = null; 
+                });
+            }
+
+            // Update Navigation Buttons
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('onclick').includes(`'${tabId}'`)) {
+                    btn.classList.add('active');
+                }
+            });
+
+            window.scrollTo(0, 0);
+        }
+
+        // --- TEAM PROFILE LOGIC ---
+        function openTeamPage(teamKey) {
+            // Get team data
+            const team = teams[teamKey];
+            if (!team) return;
+
+            // Hide Standings, Show Profile
+            document.getElementById('standings').classList.remove('active');
+            const profilePage = document.getElementById('team-profile');
+            profilePage.classList.add('active');
+
+            // Build Content
+            const contentDiv = document.getElementById('team-profile-content');
+            
+            // Header
+            let html = `
+                <div class="team-profile-header" style="background: linear-gradient(135deg, ${team.color}, #000);">
+                    <div class="team-profile-name">${team.name}</div>
+                    <div class="team-owner"><i class="fas fa-user-tie"></i> Owner: ${team.owner}</div>
+                </div>
+            `;
+
+            // Roster
+            html += `<h2 style="margin-bottom: 1rem;">Active Roster</h2><ul class="roster-list">`;
+            team.roster.forEach(player => {
+                html += `<li class="roster-item">${player}</li>`;
+            });
+            html += `</ul>`;
+
+            contentDiv.innerHTML = html;
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>

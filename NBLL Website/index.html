@@ -34,7 +34,32 @@
             background-color: var(--bg-offset);
             color: var(--text-black);
             line-height: 1.6;
+            overflow-x: hidden;
         }
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeSlideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Class to trigger animation */
+        .animate-in {
+            animation: fadeSlideIn 0.5s ease forwards;
+            opacity: 0; /* Hidden initially */
+        }
+
+        /* Stagger delays for up to 15 items */
+        .stagger-1 { animation-delay: 0.05s; }
+        .stagger-2 { animation-delay: 0.1s; }
+        .stagger-3 { animation-delay: 0.15s; }
+        .stagger-4 { animation-delay: 0.2s; }
+        .stagger-5 { animation-delay: 0.25s; }
+        .stagger-6 { animation-delay: 0.3s; }
+        .stagger-7 { animation-delay: 0.35s; }
+        .stagger-8 { animation-delay: 0.4s; }
+        .stagger-9 { animation-delay: 0.45s; }
+        .stagger-10 { animation-delay: 0.5s; }
 
         /* --- NAVIGATION --- */
         nav {
@@ -44,7 +69,7 @@
             top: 0;
             z-index: 1000;
             border-bottom: 1px solid rgba(0,0,0,0.05);
-            padding: 1rem 0; /* Vertical padding only, horizontal handled by container */
+            padding: 1rem 0;
         }
 
         .nav-container {
@@ -53,11 +78,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            /* Adjusted padding to 1.5rem to match main content alignment */
             padding: 0 1.5rem; 
         }
-
-        /* Logo class removed as requested */
 
         .nav-menu {
             display: flex;
@@ -74,22 +96,18 @@
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
-            padding: 0.5rem 0; /* Improve tap target slightly */
+            padding: 0.5rem 0;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        /* Hide icons on desktop by default */
-        .nav-icon {
-            display: none;
-        }
+        .nav-icon { display: none; }
 
         .nav-btn:hover, .nav-btn.active {
             color: var(--primary-red);
         }
 
-        /* Underline effect for active link (Desktop only) */
         .nav-btn::after {
             content: '';
             position: absolute;
@@ -106,7 +124,7 @@
         }
 
         .discord-btn-nav {
-            background-color: #5865F2; /* Discord Color */
+            background-color: #5865F2;
             color: white;
             padding: 0.5rem 1.2rem;
             border-radius: 50px;
@@ -130,24 +148,11 @@
         }
 
         .page-section {
-            display: none; /* Hidden by default */
-            animation: slideUp 0.5s ease;
+            display: none;
         }
 
         .page-section.active {
-            display: block; /* Shown when active */
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            font-weight: 800;
-            letter-spacing: -1px;
+            display: block;
         }
 
         /* --- CARDS & WIDGETS --- */
@@ -173,23 +178,6 @@
             transform: translateY(-5px);
             box-shadow: var(--shadow-lg);
             border-color: rgba(204, 0, 0, 0.1);
-        }
-
-        /* Red accent line on top of cards */
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--primary-red);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        
-        .card:hover::before {
-            opacity: 1;
         }
 
         .card h2 {
@@ -252,7 +240,6 @@
             text-align: center;
             border: 1px solid #eee;
             box-shadow: var(--shadow-sm);
-            /* Bouncier transition for "pop" effect */
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex;
             flex-direction: column;
@@ -260,22 +247,20 @@
             justify-content: center;
             position: relative;
             z-index: 1;
-            /* Ensure uniform size */
             height: 100%;
             min-height: 200px;
-            width: 100%; /* Forces cards to fill the grid cell perfectly */
+            width: 100%; 
         }
 
         .stat-leader-card:hover {
-            transform: translateY(-12px) scale(1.05); /* Big lift and grow */
+            transform: translateY(-12px) scale(1.05);
             border-color: var(--primary-red);
-            box-shadow: 0 20px 40px rgba(204, 0, 0, 0.15); /* Large red glow */
+            box-shadow: 0 20px 40px rgba(204, 0, 0, 0.15);
             z-index: 2;
         }
 
-        /* Animate the icon inside on hover */
         .stat-leader-card:hover .stat-icon {
-            transform: scale(1.3) rotate(-5deg); /* Icon pops and tilts */
+            transform: scale(1.3) rotate(-5deg);
             color: var(--hover-red);
             opacity: 1;
         }
@@ -294,7 +279,6 @@
             color: var(--text-black);
             margin-bottom: 0.2rem;
             line-height: 1.2;
-            /* Text truncation for long names */
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -325,7 +309,7 @@
             font-weight: 600;
         }
 
-        /* --- SCHEDULE REVAMP --- */
+        /* --- SCHEDULE STYLES --- */
         .schedule-card {
             background: var(--bg-white);
             border-radius: var(--radius);
@@ -355,7 +339,7 @@
         .schedule-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 4rem; /* More spacing between Game 1 and Game 2 columns */
+            gap: 4rem; 
         }
 
         .game-column-title {
@@ -379,10 +363,9 @@
             display: inline-block;
         }
 
-        /* --- UPDATED SCHEDULE STYLES --- */
         .matchup-item {
             display: grid; 
-            grid-template-columns: 1fr 40px 1fr; /* Teams take space, VS badge fixed */
+            grid-template-columns: 1fr 40px 1fr;
             align-items: center;
             padding: 1rem 0.8rem;
             background-color: white;
@@ -395,7 +378,6 @@
             overflow: hidden;
         }
 
-        /* Left Red Accent Bar */
         .matchup-item::after {
             content: '';
             position: absolute;
@@ -439,8 +421,21 @@
             padding-left: 10px;
         }
         
+        .team-record {
+            font-weight: 500;
+            font-size: 0.8em;
+            color: #888;
+            margin-left: 4px;
+            text-transform: none; 
+        }
+
+        .matchup-item .team-name:first-child .team-record {
+            margin-left: 0;
+            margin-right: 4px;
+        }
+        
         .at-separator {
-            font-size: 0.8rem; /* Adjusted font size for @ */
+            font-size: 0.8rem; 
             color: white;
             font-weight: 800;
             background: #222;
@@ -452,8 +447,6 @@
             display: block;
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
-
-        /* Sub-header for Day/Time removed as requested */
 
         /* List styling for Rules */
         .rules-list {
@@ -514,7 +507,7 @@
             border-radius: var(--radius);
             overflow: hidden;
             box-shadow: var(--shadow-sm);
-            margin-bottom: 2rem; /* Spacing between tables */
+            margin-bottom: 2rem;
         }
 
         .conference-header {
@@ -531,7 +524,7 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 600px; /* Ensure table doesn't get too squished on mobile */
+            min-width: 600px;
         }
 
         th {
@@ -559,6 +552,19 @@
         tr:hover td {
             background-color: #fafafa;
         }
+        
+        /* Team Link Styling */
+        .team-link {
+            color: inherit;
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.2s;
+            cursor: pointer;
+        }
+        .team-link:hover {
+            color: var(--primary-red);
+            text-decoration: underline;
+        }
 
         .win { color: #00aa00; font-weight: 700; }
         .loss { color: #cc0000; font-weight: 700; }
@@ -576,14 +582,13 @@
             background: #eee;
             color: #555;
         }
-        /* Specific rank colors removed to keep all gray */
 
         /* Playoff Zone Styling */
         .playoff-row {
-            background-color: rgba(255, 245, 245, 0.8); /* Very subtle red tint */
+            background-color: rgba(255, 245, 245, 0.8);
         }
         .playoff-row td:first-child {
-            box-shadow: inset 4px 0 0 var(--primary-red); /* Red accent line on left */
+            box-shadow: inset 4px 0 0 var(--primary-red);
         }
 
         /* Win % Bar */
@@ -605,7 +610,7 @@
             border-radius: 10px;
         }
 
-        /* --- IFRAME CONTAINER (For Google Sheets) --- */
+        /* --- IFRAME CONTAINER --- */
         .sheet-wrapper {
             width: 100%;
             height: 85vh;
@@ -630,18 +635,70 @@
             border-top: 1px solid #eee;
             margin-top: 4rem;
         }
+        
+        /* --- TEAM PROFILE STYLES --- */
+        .team-profile-header {
+            padding: 3rem;
+            border-radius: 16px;
+            color: white;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .team-profile-name {
+            font-family: 'Russo One', sans-serif;
+            font-size: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .team-owner {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-top: 5px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .roster-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .roster-item {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .roster-item::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--primary-red);
+            border-radius: 50%;
+        }
 
         /* --- RESPONSIVE TYPOGRAPHY & LAYOUTS --- */
-        /* Use classes instead of inline styles for better mobile control */
         .welcome-header {
-            font-family: 'Inter', sans-serif; /* Changed to simpler font */
+            font-family: 'Inter', sans-serif;
             font-weight: 800;
             text-transform: uppercase;
             line-height: 1.1;
             margin-bottom: 1rem;
             color: white;
             font-size: clamp(1.8rem, 4vw, 3rem);
-            /* Align left and remove flex centering since icon is gone */
             text-align: left;
         }
 
@@ -651,7 +708,6 @@
             text-transform: uppercase;
             font-style: italic;
             padding-right: 20px;
-            /* Use clamp to auto-shrink text on mobile */
             font-size: clamp(2rem, 5vw, 2.8rem);
         }
 
@@ -675,7 +731,7 @@
         /* --- MOBILE RESPONSIVENESS --- */
         @media (max-width: 768px) {
             .nav-container {
-                flex-direction: row; /* Keep row direction to fit icons */
+                flex-direction: row;
                 align-items: center;
                 justify-content: space-between;
                 gap: 0.5rem;
@@ -683,20 +739,19 @@
             }
 
             .nav-menu {
-                flex-wrap: nowrap; /* Don't wrap, keep in one line */
+                flex-wrap: nowrap;
                 justify-content: center;
                 gap: 0.5rem;
                 width: auto;
-                flex: 1; /* Take up available space */
+                flex: 1;
             }
 
-            /* --- MOBILE ICON TABS --- */
             .nav-text {
-                display: none; /* Hide text on mobile */
+                display: none;
             }
 
             .nav-icon {
-                display: block; /* Show icons on mobile */
+                display: block;
                 font-size: 1.2rem;
             }
 
@@ -705,26 +760,24 @@
                 padding: 0;
                 width: 40px;
                 height: 40px;
-                border-radius: 50%; /* Make them circular */
+                border-radius: 50%;
                 color: var(--text-grey);
                 background-color: transparent;
             }
 
             .nav-btn.active {
-                background-color: rgba(204, 0, 0, 0.1); /* Subtle red background */
+                background-color: rgba(204, 0, 0, 0.1);
                 color: var(--primary-red);
                 font-weight: bold;
             }
 
-            /* Remove the underline effect on mobile */
             .nav-btn::after {
                 display: none;
             }
 
-            /* Hide Join Server button on mobile to save space if needed, or keep it compact */
             .discord-btn-nav {
                 padding: 0.5rem;
-                font-size: 0; /* Hide text */
+                font-size: 0;
                 width: 36px;
                 height: 36px;
                 display: flex;
@@ -738,27 +791,26 @@
 
             .grid-container {
                 display: flex;
-                flex-direction: column; /* Stack cards vertically */
+                flex-direction: column;
                 gap: 1.5rem;
             }
 
-            /* Stack stat leaders vertically on mobile - 4 Square (2x2) */
             .stat-leaders-grid {
-                grid-template-columns: 1fr 1fr; /* 2x2 grid on mobile */
-                gap: 0.8rem; /* Smaller gap */
+                grid-template-columns: 1fr 1fr;
+                gap: 0.8rem;
             }
 
             .stat-leader-card {
-                padding: 1rem 0.5rem; /* Reduce padding to fit content */
-                min-height: 160px; /* Smaller height on mobile */
+                padding: 1rem 0.5rem;
+                min-height: 160px;
             }
 
             .stat-player {
-                font-size: 0.85rem; /* Smaller font for names */
+                font-size: 0.85rem;
             }
 
             .stat-value {
-                font-size: 1.8rem; /* Smaller numbers */
+                font-size: 1.8rem;
             }
 
             .stat-category {
@@ -766,42 +818,39 @@
             }
 
             .schedule-grid {
-                grid-template-columns: 1fr; /* Stack game columns vertically */
+                grid-template-columns: 1fr;
                 gap: 2rem;
             }
 
             .card {
-                padding: 1.5rem 1rem; /* Less horizontal padding to give content room */
-                text-align: center; /* Center content in cards */
+                padding: 1.5rem 1rem;
+                text-align: center;
             }
             
             .card h1, .card h2, .card p {
                 text-align: center;
             }
 
-            /* Fix GOTW Widget on Mobile */
-            /* User asked to keep side-by-side but condense */
             .gotw-matchup-row {
-                flex-direction: row; /* Keep horizontal */
-                gap: 5px; /* Tight gap */
+                flex-direction: row;
+                gap: 2px; /* Condensed gap on mobile */
             }
             
             .gotw-matchup-row > div {
-                min-width: 0 !important; /* Allow shrinking */
+                min-width: 0 !important;
             }
 
             .gotw-matchup-row .team-name {
-                font-size: 0.8rem; /* Smaller text */
+                font-size: 0.75rem; /* Smaller text on mobile */
             }
             
             .gotw-matchup-row .vs-badge {
-                width: 30px;
-                height: 30px;
-                font-size: 1rem;
+                width: 24px;  /* Shrink @ badge size */
+                height: 24px;
+                font-size: 0.9rem;
                 margin: 0;
             }
 
-            /* Allow horizontal scroll for tables on small screens */
             .table-container {
                 overflow-x: auto;
             }
@@ -811,7 +860,7 @@
             }
             
             h1 {
-                font-size: 2rem; /* Smaller headings */
+                font-size: 2rem;
             }
             
             .week-header {
@@ -819,12 +868,10 @@
                 justify-content: center;
             }
             
-            /* Center welcome header icon and text */
             .welcome-header {
                 justify-content: center;
             }
             
-            /* Mobile only buttons: Hide text, center buttons */
             .btn-text {
                 display: none;
             }
@@ -842,12 +889,10 @@
                 justify-content: center;
             }
             
-            /* Align conference headers left on mobile */
             .conference-header {
                 justify-content: flex-start;
             }
             
-            /* Welcome Specs Mobile */
             .league-specs {
                 gap: 1rem;
                 justify-content: space-between;
@@ -865,12 +910,10 @@
                 font-size: 0.65rem;
             }
             
-            /* Rules Tab Alignment - Left Align on Mobile */
             #rules .card, #rules .card h2, #rules .card ul {
                 text-align: left;
             }
             
-            /* Ensure images/assets don't overflow */
             img, iframe {
                 max-width: 100%;
             }
@@ -946,17 +989,17 @@
                         
                         <div class="league-spec-item">
                             <div class="spec-label">Format</div>
-                            <div class="spec-value"><i class="fas fa-users" style="font-size: 0.8em; margin-right: 5px;"></i> 4v4</div>
+                            <div class="spec-value">4v4</div>
                         </div>
 
                         <div class="league-spec-item">
                             <div class="spec-label">Region</div>
-                            <div class="spec-value"><i class="fas fa-globe-americas" style="font-size: 0.8em; margin-right: 5px;"></i> NA East</div>
+                            <div class="spec-value">NA East</div>
                         </div>
 
                         <div class="league-spec-item">
                             <div class="spec-label">Teams</div>
-                            <div class="spec-value"><i class="fas fa-tshirt" style="font-size: 0.8em; margin-right: 5px;"></i> 14</div>
+                            <div class="spec-value">14</div>
                         </div>
 
                     </div>
@@ -1007,7 +1050,7 @@
             
             <div class="stat-leaders-grid">
                 <!-- POINTS -->
-                <div class="stat-leader-card">
+                <div class="stat-leader-card stagger-1 animate-in">
                     <div class="stat-icon"><i class="fas fa-bullseye"></i></div> <!-- Changed to Bullseye for Points -->
                     <div class="stat-player">Soulz</div>
                     <div class="stat-value">542</div>
@@ -1015,7 +1058,7 @@
                     <div class="stat-team">MIL</div>
                 </div>
                 <!-- REBOUNDS -->
-                <div class="stat-leader-card">
+                <div class="stat-leader-card stagger-2 animate-in">
                     <div class="stat-icon"><i class="fas fa-hands"></i></div> <!-- Two Hands Icon -->
                     <div class="stat-player">Marsh</div>
                     <div class="stat-value">27</div>
@@ -1023,7 +1066,7 @@
                     <div class="stat-team">TOR</div>
                 </div>
                 <!-- ASSISTS -->
-                <div class="stat-leader-card">
+                <div class="stat-leader-card stagger-3 animate-in">
                     <div class="stat-icon"><i class="fas fa-hands-helping"></i></div>
                     <div class="stat-player">Dre</div>
                     <div class="stat-value">172</div>
@@ -1031,7 +1074,7 @@
                     <div class="stat-team">MIL</div>
                 </div>
                 <!-- STEALS -->
-                <div class="stat-leader-card">
+                <div class="stat-leader-card stagger-4 animate-in">
                     <div class="stat-icon"><i class="fas fa-hand-paper"></i></div>
                     <div class="stat-player">Marsh</div>
                     <div class="stat-value">32</div>
@@ -1104,52 +1147,52 @@
                     </thead>
                     <tbody>
                         <!-- Top 4: Playoff Zone -->
-                        <tr class="playoff-row">
+                        <tr class="playoff-row stagger-1 animate-in" onclick="openTeamPage('clippers')">
                             <td><div class="rank-badge rank-1">1</div></td>
-                            <td><span style="font-weight: 700;">Clippers</span></td>
+                            <td><span class="team-link">Clippers</span></td>
                             <td class="win">6</td><td>0</td>
                             <td><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 100%;"></div></div> 1.000</div></td>
                             <td>-</td>
                         </tr>
-                        <tr class="playoff-row">
+                        <tr class="playoff-row stagger-2 animate-in" onclick="openTeamPage('mavs')">
                             <td><div class="rank-badge rank-2">2</div></td>
-                            <td><span style="font-weight: 600;">Mavs</span></td>
+                            <td><span class="team-link">Mavs</span></td>
                             <td class="win">5</td><td>1</td>
                             <td><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 83%;"></div></div> .833</div></td>
                             <td>1.0</td>
                         </tr>
-                        <tr class="playoff-row">
+                        <tr class="playoff-row stagger-3 animate-in" onclick="openTeamPage('lakers')">
                             <td><div class="rank-badge rank-3">3</div></td>
-                            <td><span style="font-weight: 600;">Lakers</span></td>
+                            <td><span class="team-link">Lakers</span></td>
                             <td class="win">4</td><td>2</td>
                             <td><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 66%;"></div></div> .667</div></td>
                             <td>2.0</td>
                         </tr>
-                        <tr class="playoff-row">
+                        <tr class="playoff-row stagger-4 animate-in" onclick="openTeamPage('nuggets')">
                             <td><div class="rank-badge">4</div></td>
-                            <td>Nuggets</td>
+                            <td><span class="team-link">Nuggets</span></td>
                             <td class="win">4</td><td>2</td>
                             <td><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 66%;"></div></div> .667</div></td>
                             <td>2.0</td>
                         </tr>
                         <!-- Bottom 3: Outside Playoffs -->
-                        <tr>
+                        <tr class="stagger-5 animate-in" onclick="openTeamPage('grizzlies')">
                             <td><div class="rank-badge">5</div></td>
-                            <td>Grizzlies</td>
+                            <td><span class="team-link">Grizzlies</span></td>
                             <td class="win">1</td><td>5</td>
                             <td><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 16%;"></div></div> .167</div></td>
                             <td>5.0</td>
                         </tr>
-                        <tr>
+                        <tr class="stagger-6 animate-in" onclick="openTeamPage('wolves')">
                             <td><div class="rank-badge">6</div></td>
-                            <td>Timberwolves</td>
+                            <td><span class="team-link">Timberwolves</span></td>
                             <td class="win">0</td><td>6</td>
                             <td><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 0%;"></div></div> .000</div></td>
                             <td>6.0</td>
                         </tr>
-                        <tr>
+                        <tr class="stagger-7 animate-in" onclick="openTeamPage('thunder')">
                             <td><div class="rank-badge">7</div></td>
-                            <td>Thunder</td>
+                            <td><span class="team-link">Thunder</span></td>
                             <td class="win">0</td><td>7</td>
                             <td><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 0%;"></div></div> .000</div></td>
                             <td>6.5</td>
@@ -1174,28 +1217,28 @@
                     </thead>
                     <tbody>
                         <!-- Top 4: Playoff Zone -->
-                        <tr class="playoff-row">
+                        <tr class="playoff-row stagger-1 animate-in">
                             <td><div class="rank-badge rank-1">1</div></td>
                             <td><span style="font-weight: 700;">Raptors</span></td>
                             <td class="win">6</td><td>1</td>
                             <td><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 85%;"></div></div> .857</div></td>
                             <td>-</td>
                         </tr>
-                        <tr class="playoff-row">
+                        <tr class="playoff-row stagger-2 animate-in">
                             <td><div class="rank-badge rank-2">2</div></td>
                             <td><span style="font-weight: 600;">Bucks</span></td>
                             <td class="win">5</td><td>2</td>
                             <td><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 71%;"></div></div> .714</div></td>
                             <td>1.0</td>
                         </tr>
-                        <tr class="playoff-row">
+                        <tr class="playoff-row stagger-3 animate-in">
                             <td><div class="rank-badge rank-3">3</div></td>
                             <td><span style="font-weight: 600;">Bulls</span></td>
                             <td class="win">4</td><td>2</td>
                             <td><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 66%;"></div></div> .667</div></td>
                             <td>1.5</td>
                         </tr>
-                        <tr class="playoff-row">
+                        <tr class="playoff-row stagger-4 animate-in">
                             <td><div class="rank-badge">4</div></td>
                             <td>Magic</td>
                             <td class="win">3</td><td>3</td>
@@ -1203,21 +1246,21 @@
                             <td>2.5</td>
                         </tr>
                         <!-- Bottom 3: Outside Playoffs -->
-                        <tr>
+                        <tr class="stagger-5 animate-in">
                             <td><div class="rank-badge">5</div></td>
                             <td>Heat</td>
                             <td class="win">3</td><td>3</td>
                             <td><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 50%;"></div></div> .500</div></td>
                             <td>2.5</td>
                         </tr>
-                        <tr>
+                        <tr class="stagger-6 animate-in">
                             <td><div class="rank-badge">6</div></td>
                             <td>Celtics</td>
                             <td class="win">2</td><td>5</td>
                             <td><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 28%;"></div></div> .286</div></td>
                             <td>4.0</td>
                         </tr>
-                        <tr>
+                        <tr class="stagger-7 animate-in">
                             <td><div class="rank-badge">7</div></td>
                             <td>Hawks</td>
                             <td class="win">1</td><td>5</td>
@@ -1226,6 +1269,17 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>
+        </section>
+        
+        <!-- TEAM PROFILE SECTION (HIDDEN BY DEFAULT) -->
+        <section id="team-profile" class="page-section">
+            <button class="cta-btn" onclick="switchTab('standings')" style="margin-bottom: 2rem; background: white; color: var(--text-black); border: 1px solid #ddd; padding: 10px 20px; font-size: 0.9rem;">
+                <i class="fas fa-arrow-left"></i> Back to Standings
+            </button>
+            
+            <div id="team-profile-content">
+                <!-- Content will be injected via JS -->
             </div>
         </section>
 
@@ -1244,7 +1298,7 @@
             <h1>Season Schedule</h1>
             
             <!-- Week 4 -->
-            <div class="schedule-card">
+            <div class="schedule-card animate-in stagger-1">
                 <div class="week-header"><i class="far fa-calendar-alt"></i> NBLL S11 Week 4</div>
                 
                 <div class="schedule-grid">
@@ -1252,32 +1306,32 @@
                     <div class="game-column">
                         <div class="game-column-title">Game 1</div>
                         
-                        <div class="matchup-item"><span class="team-name">Mavs</span> <span class="at-separator">@</span> <span class="team-name">Lakers</span></div>
-                        <div class="matchup-item"><span class="team-name">Wolves</span> <span class="at-separator">@</span> <span class="team-name">Bulls</span></div>
-                        <div class="matchup-item"><span class="team-name">Clippers</span> <span class="at-separator">@</span> <span class="team-name">Heat</span></div>
-                        <div class="matchup-item"><span class="team-name">Celtics</span> <span class="at-separator">@</span> <span class="team-name">Bucks</span></div>
-                        <div class="matchup-item"><span class="team-name">Thunder</span> <span class="at-separator">@</span> <span class="team-name">Raptors</span></div>
-                        <div class="matchup-item"><span class="team-name">Grizzlies</span> <span class="at-separator">@</span> <span class="team-name">Hawks</span></div>
-                        <div class="matchup-item"><span class="team-name">Nuggets</span> <span class="at-separator">@</span> <span class="team-name">Magic</span></div>
+                        <div class="matchup-item stagger-1 animate-in"><span class="team-name"><span class="team-record">(5-1)</span> Mavs</span> <span class="at-separator">@</span> <span class="team-name">Lakers <span class="team-record">(4-2)</span></span></div>
+                        <div class="matchup-item stagger-2 animate-in"><span class="team-name"><span class="team-record">(0-6)</span> Wolves</span> <span class="at-separator">@</span> <span class="team-name">Bulls <span class="team-record">(4-2)</span></span></div>
+                        <div class="matchup-item stagger-3 animate-in"><span class="team-name"><span class="team-record">(6-0)</span> Clippers</span> <span class="at-separator">@</span> <span class="team-name">Heat <span class="team-record">(3-3)</span></span></div>
+                        <div class="matchup-item stagger-4 animate-in"><span class="team-name"><span class="team-record">(2-5)</span> Celtics</span> <span class="at-separator">@</span> <span class="team-name">Bucks <span class="team-record">(5-2)</span></span></div>
+                        <div class="matchup-item stagger-5 animate-in"><span class="team-name"><span class="team-record">(0-7)</span> Thunder</span> <span class="at-separator">@</span> <span class="team-name">Raptors <span class="team-record">(6-1)</span></span></div>
+                        <div class="matchup-item stagger-6 animate-in"><span class="team-name"><span class="team-record">(1-5)</span> Grizzlies</span> <span class="at-separator">@</span> <span class="team-name">Hawks <span class="team-record">(1-5)</span></span></div>
+                        <div class="matchup-item stagger-7 animate-in"><span class="team-name"><span class="team-record">(4-2)</span> Nuggets</span> <span class="at-separator">@</span> <span class="team-name">Magic <span class="team-record">(3-3)</span></span></div>
                     </div>
 
                     <!-- Game 2 Column -->
                     <div class="game-column">
                         <div class="game-column-title">Game 2</div>
 
-                        <div class="matchup-item"><span class="team-name">Magic</span> <span class="at-separator">@</span> <span class="team-name">Thunder</span></div>
-                        <div class="matchup-item"><span class="team-name">Bucks</span> <span class="at-separator">@</span> <span class="team-name">Grizzlies</span></div>
-                        <div class="matchup-item"><span class="team-name">Heat</span> <span class="at-separator">@</span> <span class="team-name">Wolves</span></div>
-                        <div class="matchup-item"><span class="team-name">Raptors</span> <span class="at-separator">@</span> <span class="team-name">Clippers</span></div>
-                        <div class="matchup-item"><span class="team-name">Lakers</span> <span class="at-separator">@</span> <span class="team-name">Nuggets</span></div>
-                        <div class="matchup-item"><span class="team-name">Hawks</span> <span class="at-separator">@</span> <span class="team-name">Celtics</span></div>
-                        <div class="matchup-item"><span class="team-name">Bulls</span> <span class="at-separator">@</span> <span class="team-name">Mavs</span></div>
+                        <div class="matchup-item stagger-1 animate-in"><span class="team-name"><span class="team-record">(3-3)</span> Magic</span> <span class="at-separator">@</span> <span class="team-name">Thunder <span class="team-record">(0-7)</span></span></div>
+                        <div class="matchup-item stagger-2 animate-in"><span class="team-name"><span class="team-record">(5-2)</span> Bucks</span> <span class="at-separator">@</span> <span class="team-name">Grizzlies <span class="team-record">(1-5)</span></span></div>
+                        <div class="matchup-item stagger-3 animate-in"><span class="team-name"><span class="team-record">(3-3)</span> Heat</span> <span class="at-separator">@</span> <span class="team-name">Wolves <span class="team-record">(0-6)</span></span></div>
+                        <div class="matchup-item stagger-4 animate-in"><span class="team-name"><span class="team-record">(6-1)</span> Raptors</span> <span class="at-separator">@</span> <span class="team-name">Clippers <span class="team-record">(6-0)</span></span></div>
+                        <div class="matchup-item stagger-5 animate-in"><span class="team-name"><span class="team-record">(4-2)</span> Lakers</span> <span class="at-separator">@</span> <span class="team-name">Nuggets <span class="team-record">(4-2)</span></span></div>
+                        <div class="matchup-item stagger-6 animate-in"><span class="team-name"><span class="team-record">(1-5)</span> Hawks</span> <span class="at-separator">@</span> <span class="team-name">Celtics <span class="team-record">(2-5)</span></span></div>
+                        <div class="matchup-item stagger-7 animate-in"><span class="team-name"><span class="team-record">(4-2)</span> Bulls</span> <span class="at-separator">@</span> <span class="team-name">Mavs <span class="team-record">(5-1)</span></span></div>
                     </div>
                 </div>
             </div>
 
             <!-- Week 3 -->
-            <div class="schedule-card">
+            <div class="schedule-card animate-in stagger-2">
                 <div class="week-header"><i class="far fa-calendar-alt"></i> NBLL S11 Week 3</div>
                 
                 <div class="schedule-grid">
@@ -1285,32 +1339,32 @@
                     <div class="game-column">
                         <div class="game-column-title">Game 1</div>
                         
-                        <div class="matchup-item"><span class="team-name">Lakers</span> <span class="at-separator">@</span> <span class="team-name">Celtics</span></div>
-                        <div class="matchup-item"><span class="team-name">Grizzlies</span> <span class="at-separator">@</span> <span class="team-name">Magic</span></div>
-                        <div class="matchup-item"><span class="team-name">Nuggets</span> <span class="at-separator">@</span> <span class="team-name">Bulls</span></div>
-                        <div class="matchup-item"><span class="team-name">Raptors</span> <span class="at-separator">@</span> <span class="team-name">Heat</span></div>
-                        <div class="matchup-item"><span class="team-name">Mavs</span> <span class="at-separator">@</span> <span class="team-name">Wolves</span></div>
-                        <div class="matchup-item"><span class="team-name">Hawks</span> <span class="at-separator">@</span> <span class="team-name">Bucks</span></div>
-                        <div class="matchup-item"><span class="team-name">Clippers</span> <span class="at-separator">@</span> <span class="team-name">Thunder</span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(4-2)</span> Lakers</span> <span class="at-separator">@</span> <span class="team-name">Celtics <span class="team-record">(2-5)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(1-5)</span> Grizzlies</span> <span class="at-separator">@</span> <span class="team-name">Magic <span class="team-record">(3-3)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(4-2)</span> Nuggets</span> <span class="at-separator">@</span> <span class="team-name">Bulls <span class="team-record">(4-2)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(6-1)</span> Raptors</span> <span class="at-separator">@</span> <span class="team-name">Heat <span class="team-record">(3-3)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(5-1)</span> Mavs</span> <span class="at-separator">@</span> <span class="team-name">Wolves <span class="team-record">(0-6)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(1-5)</span> Hawks</span> <span class="at-separator">@</span> <span class="team-name">Bucks <span class="team-record">(5-2)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(6-0)</span> Clippers</span> <span class="at-separator">@</span> <span class="team-name">Thunder <span class="team-record">(0-7)</span></span></div>
                     </div>
 
                     <!-- Game 2 Column -->
                     <div class="game-column">
                         <div class="game-column-title">Game 2</div>
 
-                        <div class="matchup-item"><span class="team-name">Bulls</span> <span class="at-separator">@</span> <span class="team-name">Lakers</span></div>
-                        <div class="matchup-item"><span class="team-name">Magic</span> <span class="at-separator">@</span> <span class="team-name">Hawks</span></div>
-                        <div class="matchup-item"><span class="team-name">Thunder</span> <span class="at-separator">@</span> <span class="team-name">Nuggets</span></div>
-                        <div class="matchup-item"><span class="team-name">Bucks</span> <span class="at-separator">@</span> <span class="team-name">Raptors</span></div>
-                        <div class="matchup-item"><span class="team-name">Celtics</span> <span class="at-separator">@</span> <span class="team-name">Mavs</span></div>
-                        <div class="matchup-item"><span class="team-name">Heat</span> <span class="at-separator">@</span> <span class="team-name">Grizzlies</span></div>
-                        <div class="matchup-item"><span class="team-name">Wolves</span> <span class="at-separator">@</span> <span class="team-name">Clippers</span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(4-2)</span> Bulls</span> <span class="at-separator">@</span> <span class="team-name">Lakers <span class="team-record">(4-2)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(3-3)</span> Magic</span> <span class="at-separator">@</span> <span class="team-name">Hawks <span class="team-record">(1-5)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(0-7)</span> Thunder</span> <span class="at-separator">@</span> <span class="team-name">Nuggets <span class="team-record">(4-2)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(5-2)</span> Bucks</span> <span class="at-separator">@</span> <span class="team-name">Raptors <span class="team-record">(6-1)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(2-5)</span> Celtics</span> <span class="at-separator">@</span> <span class="team-name">Mavs <span class="team-record">(5-1)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(3-3)</span> Heat</span> <span class="at-separator">@</span> <span class="team-name">Grizzlies <span class="team-record">(1-5)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(0-6)</span> Wolves</span> <span class="at-separator">@</span> <span class="team-name">Clippers <span class="team-record">(6-0)</span></span></div>
                     </div>
                 </div>
             </div>
 
             <!-- Week 2 -->
-            <div class="schedule-card">
+            <div class="schedule-card animate-in stagger-3">
                 <div class="week-header"><i class="far fa-calendar-alt"></i> NBLL S11 Week 2</div>
                 
                 <div class="schedule-grid">
@@ -1318,32 +1372,32 @@
                     <div class="game-column">
                         <div class="game-column-title">Game 1</div>
                         
-                        <div class="matchup-item"><span class="team-name">Wolves</span> <span class="at-separator">@</span> <span class="team-name">Celtics</span></div>
-                        <div class="matchup-item"><span class="team-name">Raptors</span> <span class="at-separator">@</span> <span class="team-name">Magic</span></div>
-                        <div class="matchup-item"><span class="team-name">Clippers</span> <span class="at-separator">@</span> <span class="team-name">Bulls</span></div>
-                        <div class="matchup-item"><span class="team-name">Nuggets</span> <span class="at-separator">@</span> <span class="team-name">Heat</span></div>
-                        <div class="matchup-item"><span class="team-name">Bucks</span> <span class="at-separator">@</span> <span class="team-name">Thunder</span></div>
-                        <div class="matchup-item"><span class="team-name">Hawks</span> <span class="at-separator">@</span> <span class="team-name">Mavs</span></div>
-                        <div class="matchup-item"><span class="team-name">Lakers</span> <span class="at-separator">@</span> <span class="team-name">Grizzlies</span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(0-6)</span> Wolves</span> <span class="at-separator">@</span> <span class="team-name">Celtics <span class="team-record">(2-5)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(6-1)</span> Raptors</span> <span class="at-separator">@</span> <span class="team-name">Magic <span class="team-record">(3-3)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(6-0)</span> Clippers</span> <span class="at-separator">@</span> <span class="team-name">Bulls <span class="team-record">(4-2)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(4-2)</span> Nuggets</span> <span class="at-separator">@</span> <span class="team-name">Heat <span class="team-record">(3-3)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(5-2)</span> Bucks</span> <span class="at-separator">@</span> <span class="team-name">Thunder <span class="team-record">(0-7)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(1-5)</span> Hawks</span> <span class="at-separator">@</span> <span class="team-name">Mavs <span class="team-record">(5-1)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(4-2)</span> Lakers</span> <span class="at-separator">@</span> <span class="team-name">Grizzlies <span class="team-record">(1-5)</span></span></div>
                     </div>
 
                     <!-- Game 2 Column -->
                     <div class="game-column">
                         <div class="game-column-title">Game 2</div>
 
-                        <div class="matchup-item"><span class="team-name">Celtics</span> <span class="at-separator">@</span> <span class="team-name">Nuggets</span></div>
-                        <div class="matchup-item"><span class="team-name">Magic</span> <span class="at-separator">@</span> <span class="team-name">Wolves</span></div>
-                        <div class="matchup-item"><span class="team-name">Bulls</span> <span class="at-separator">@</span> <span class="team-name">Hawks</span></div>
-                        <div class="matchup-item"><span class="team-name">Grizzlies</span> <span class="at-separator">@</span> <span class="team-name">Raptors</span></div>
-                        <div class="matchup-item"><span class="team-name">Thunder</span> <span class="at-separator">@</span> <span class="team-name">Lakers</span></div>
-                        <div class="matchup-item"><span class="team-name">Mavs</span> <span class="at-separator">@</span> <span class="team-name">Clippers</span></div>
-                        <div class="matchup-item"><span class="team-name">Heat</span> <span class="at-separator">@</span> <span class="team-name">Bucks</span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(2-5)</span> Celtics</span> <span class="at-separator">@</span> <span class="team-name">Nuggets <span class="team-record">(4-2)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(3-3)</span> Magic</span> <span class="at-separator">@</span> <span class="team-name">Wolves <span class="team-record">(0-6)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(4-2)</span> Bulls</span> <span class="at-separator">@</span> <span class="team-name">Hawks <span class="team-record">(1-5)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(1-5)</span> Grizzlies</span> <span class="at-separator">@</span> <span class="team-name">Raptors <span class="team-record">(6-1)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(0-7)</span> Thunder</span> <span class="at-separator">@</span> <span class="team-name">Lakers <span class="team-record">(4-2)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(5-1)</span> Mavs</span> <span class="at-separator">@</span> <span class="team-name">Clippers <span class="team-record">(6-0)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(3-3)</span> Heat</span> <span class="at-separator">@</span> <span class="team-name">Bucks <span class="team-record">(5-2)</span></span></div>
                     </div>
                 </div>
             </div>
 
             <!-- Week 1 -->
-            <div class="schedule-card">
+            <div class="schedule-card animate-in stagger-4">
                 <div class="week-header"><i class="far fa-calendar-alt"></i> NBLL S11 Week 1</div>
                 
                 <div class="schedule-grid">
@@ -1351,26 +1405,26 @@
                     <div class="game-column">
                         <div class="game-column-title">Game 1</div>
                         
-                        <div class="matchup-item"><span class="team-name">Magic</span> <span class="at-separator">@</span> <span class="team-name">Celtics</span></div>
-                        <div class="matchup-item"><span class="team-name">Heat</span> <span class="at-separator">@</span> <span class="team-name">Bulls</span></div>
-                        <div class="matchup-item"><span class="team-name">Thunder</span> <span class="at-separator">@</span> <span class="team-name">Nuggets</span></div>
-                        <div class="matchup-item"><span class="team-name">Grizzlies</span> <span class="at-separator">@</span> <span class="team-name">Mavs</span></div>
-                        <div class="matchup-item"><span class="team-name">Clippers</span> <span class="at-separator">@</span> <span class="team-name">Bucks</span></div>
-                        <div class="matchup-item"><span class="team-name">Raptors</span> <span class="at-separator">@</span> <span class="team-name">Lakers</span></div>
-                        <div class="matchup-item"><span class="team-name">Hawks</span> <span class="at-separator">@</span> <span class="team-name">Wolves</span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(3-3)</span> Magic</span> <span class="at-separator">@</span> <span class="team-name">Celtics <span class="team-record">(2-5)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(3-3)</span> Heat</span> <span class="at-separator">@</span> <span class="team-name">Bulls <span class="team-record">(4-2)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(0-7)</span> Thunder</span> <span class="at-separator">@</span> <span class="team-name">Nuggets <span class="team-record">(4-2)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(1-5)</span> Grizzlies</span> <span class="at-separator">@</span> <span class="team-name">Mavs <span class="team-record">(5-1)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(6-0)</span> Clippers</span> <span class="at-separator">@</span> <span class="team-name">Bucks <span class="team-record">(5-2)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(6-1)</span> Raptors</span> <span class="at-separator">@</span> <span class="team-name">Lakers <span class="team-record">(4-2)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(1-5)</span> Hawks</span> <span class="at-separator">@</span> <span class="team-name">Wolves <span class="team-record">(0-6)</span></span></div>
                     </div>
 
                     <!-- Game 2 Column -->
                     <div class="game-column">
                         <div class="game-column-title">Game 2</div>
 
-                        <div class="matchup-item"><span class="team-name">Mavs</span> <span class="at-separator">@</span> <span class="team-name">Nuggets</span></div>
-                        <div class="matchup-item"><span class="team-name">Bulls</span> <span class="at-separator">@</span> <span class="team-name">Grizzlies</span></div>
-                        <div class="matchup-item"><span class="team-name">Bucks</span> <span class="at-separator">@</span> <span class="team-name">Magic</span></div>
-                        <div class="matchup-item"><span class="team-name">Celtics</span> <span class="at-separator">@</span> <span class="team-name">Heat</span></div>
-                        <div class="matchup-item"><span class="team-name">Wolves</span> <span class="at-separator">@</span> <span class="team-name">Clippers</span></div>
-                        <div class="matchup-item"><span class="team-name">Thunder</span> <span class="at-separator">@</span> <span class="team-name">Raptors</span></div>
-                        <div class="matchup-item"><span class="team-name">Lakers</span> <span class="at-separator">@</span> <span class="team-name">Hawks</span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(5-1)</span> Mavs</span> <span class="at-separator">@</span> <span class="team-name">Nuggets <span class="team-record">(4-2)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(4-2)</span> Bulls</span> <span class="at-separator">@</span> <span class="team-name">Grizzlies <span class="team-record">(1-5)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(5-2)</span> Bucks</span> <span class="at-separator">@</span> <span class="team-name">Magic <span class="team-record">(3-3)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(2-5)</span> Celtics</span> <span class="at-separator">@</span> <span class="team-name">Heat <span class="team-record">(3-3)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(0-6)</span> Wolves</span> <span class="at-separator">@</span> <span class="team-name">Clippers <span class="team-record">(6-0)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(0-7)</span> Thunder</span> <span class="at-separator">@</span> <span class="team-name">Raptors <span class="team-record">(6-1)</span></span></div>
+                        <div class="matchup-item"><span class="team-name"><span class="team-record">(4-2)</span> Lakers</span> <span class="at-separator">@</span> <span class="team-name">Hawks <span class="team-record">(1-5)</span></span></div>
                     </div>
                 </div>
             </div>
@@ -1381,7 +1435,7 @@
             <h1>NBLL Rules</h1>
             <div class="grid-container">
                 <!-- Server Rules -->
-                <div class="card">
+                <div class="card stagger-1 animate-in">
                     <h2><i class="fab fa-discord" style="color: var(--primary-red);"></i> Server Rules</h2>
                     <ul class="rules-list">
                         <li>No NSFW content</li>
@@ -1393,7 +1447,7 @@
                 </div>
 
                 <!-- Franchise Rules -->
-                <div class="card">
+                <div class="card stagger-2 animate-in">
                     <h2><i class="fas fa-users" style="color: var(--primary-red);"></i> Franchise Rules</h2>
                     <ul class="rules-list">
                         <li>You may only play on 1 team per schedule release</li>
@@ -1403,7 +1457,7 @@
                 </div>
 
                 <!-- Setup Rules -->
-                <div class="card">
+                <div class="card stagger-3 animate-in">
                     <h2><i class="fas fa-gamepad" style="color: var(--primary-red);"></i> Setup Rules</h2>
                     <ul class="rules-list">
                         <li>4v4 only</li>
@@ -1417,7 +1471,7 @@
                 </div>
 
                 <!-- Cherry Picking & Court Rules -->
-                <div class="card">
+                <div class="card stagger-4 animate-in">
                     <h2><i class="fas fa-basketball-ball" style="color: var(--primary-red);"></i> Court Rules</h2>
                     <ul class="rules-list">
                         <li>No cherry picking or inbounding to opposite half unless:</li>
@@ -1429,7 +1483,7 @@
                 </div>
 
                 <!-- Timeout Rules -->
-                <div class="card">
+                <div class="card stagger-5 animate-in">
                     <h2><i class="fas fa-clock" style="color: var(--primary-red);"></i> Timeout Rules</h2>
                     <ul class="rules-list">
                         <li>Each team is allowed 3 timeouts</li>
@@ -1440,7 +1494,7 @@
                 </div>
 
                 <!-- PC Checking Rules -->
-                <div class="card">
+                <div class="card stagger-6 animate-in">
                     <h2><i class="fas fa-desktop" style="color: var(--primary-red);"></i> PC Checking</h2>
                     <ul class="rules-list">
                         <li>PC checks may be requested during a game with suspicious behavior clip</li>
@@ -1453,7 +1507,7 @@
                 </div>
 
                 <!-- Punishments -->
-                <div class="card" style="border: 1px solid var(--primary-red);">
+                <div class="card stagger-7 animate-in" style="border: 1px solid var(--primary-red);">
                     <h2><i class="fas fa-ban" style="color: var(--primary-red);"></i> Offenses</h2>
                     <h3 style="font-size: 1rem; color: var(--text-black); margin-top: 10px;">Suspension-Level</h3>
                     <ul class="rules-list">
@@ -1498,30 +1552,123 @@
     </footer>
 
     <script>
+        // --- TEAM DATA ---
+        const teams = {
+            'clippers': {
+                name: 'LA Clippers',
+                owner: 'jomz (FO)',
+                color: '#1D428A', // Clippers Blue
+                roster: ['Rahbizzy', 'Bum', 'pansho', 'aesir', 'abel', 'taser', 'junior', 'chxno', 'gmz']
+            },
+            'mavs': {
+                name: 'Dallas Mavericks',
+                owner: 'b3t (FO)',
+                color: '#00538C', // Mavs Blue
+                roster: ['star', '1luv', 'nero', 'Kirazi', 'AJ', 'dave', 'Ghost', 'polar', '1248891831886938206']
+            },
+            'lakers': {
+                name: 'LA Lakers',
+                owner: 'Sinful (FO)',
+                color: '#552583', // Lakers Purple
+                roster: ['3tomo', 'Blade', 'kbv', 'nacho', 'Donny', 'MemeeReborn', 'punkmonk']
+            },
+            'nuggets': {
+                name: 'Denver Nuggets',
+                owner: 'DogeShadowDragon (FO)',
+                color: '#0E2240', // Nuggets Navy/Gold
+                roster: ['Roundy', 'rock', 'morganana', 'talent', 'TREX']
+            },
+            'grizzlies': {
+                name: 'Memphis Grizzlies',
+                owner: 'Kevo (FO)',
+                color: '#5D76A9', // Grizzlies Blue
+                roster: ['Aggro', 'ohio', 'Ken', 'rongone', 'Frq', 'zen']
+            },
+            'wolves': { // mapped from 'timberwolves' in standings
+                name: 'Minnesota Timberwolves',
+                owner: 'GameSmasherYT (FO)',
+                color: '#0C2340', // Wolves Blue
+                roster: ['Axn', 'Jack', 'jc', 'Nyctophobia', 'madnessSX', 'scary', 'boredomm']
+            },
+            'thunder': {
+                name: 'OKC Thunder',
+                owner: 'falcvo (FO)',
+                color: '#007AC1', // Thunder Blue
+                roster: ['Balanitis Bleu', 's', 'Xid']
+            },
+            // Placeholders for East Teams (prevent errors if clicked)
+            'raptors': { name: 'Toronto Raptors', owner: 'TBD', color: '#CE1141', roster: ['Coming Soon'] },
+            'bucks': { name: 'Milwaukee Bucks', owner: 'TBD', color: '#00471B', roster: ['Coming Soon'] },
+            'bulls': { name: 'Chicago Bulls', owner: 'TBD', color: '#CE1141', roster: ['Coming Soon'] },
+            'magic': { name: 'Orlando Magic', owner: 'TBD', color: '#0077C0', roster: ['Coming Soon'] },
+            'heat': { name: 'Miami Heat', owner: 'TBD', color: '#98002E', roster: ['Coming Soon'] },
+            'celtics': { name: 'Boston Celtics', owner: 'TBD', color: '#007A33', roster: ['Coming Soon'] },
+            'hawks': { name: 'Atlanta Hawks', owner: 'TBD', color: '#C1D32F', roster: ['Coming Soon'] }
+        };
+
         function switchTab(tabId) {
-            // 1. Hide all Page Sections
+            // Hide all pages including team profile
             const sections = document.querySelectorAll('.page-section');
             sections.forEach(section => {
                 section.classList.remove('active');
             });
 
-            // 2. Show the clicked section
+            // Show selected page
             const activeSection = document.getElementById(tabId);
             if (activeSection) {
                 activeSection.classList.add('active');
+                
+                // Re-trigger animations
+                const animatedElements = activeSection.querySelectorAll('.animate-in');
+                animatedElements.forEach(el => {
+                    el.style.animation = 'none';
+                    el.offsetHeight; 
+                    el.style.animation = null; 
+                });
             }
 
-            // 3. Update Navigation Buttons
+            // Update Navigation Buttons
             const buttons = document.querySelectorAll('.nav-btn');
             buttons.forEach(btn => {
                 btn.classList.remove('active');
-                // Check if this button matches the tab we just switched to
                 if (btn.getAttribute('onclick').includes(`'${tabId}'`)) {
                     btn.classList.add('active');
                 }
             });
 
-            // 4. Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // --- TEAM PROFILE LOGIC ---
+        function openTeamPage(teamKey) {
+            // Get team data
+            const team = teams[teamKey];
+            if (!team) return;
+
+            // Hide Standings, Show Profile
+            document.getElementById('standings').classList.remove('active');
+            const profilePage = document.getElementById('team-profile');
+            profilePage.classList.add('active');
+
+            // Build Content
+            const contentDiv = document.getElementById('team-profile-content');
+            
+            // Header
+            let html = `
+                <div class="team-profile-header" style="background: linear-gradient(135deg, ${team.color}, #000);">
+                    <div class="team-profile-name">${team.name}</div>
+                    <div class="team-owner"><i class="fas fa-user-tie"></i> Owner: ${team.owner}</div>
+                </div>
+            `;
+
+            // Roster
+            html += `<h2 style="margin-bottom: 1rem;">Active Roster</h2><ul class="roster-list">`;
+            team.roster.forEach(player => {
+                html += `<li class="roster-item">${player}</li>`;
+            });
+            html += `</ul>`;
+
+            contentDiv.innerHTML = html;
             window.scrollTo(0, 0);
         }
     </script>

@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NBLL | Roblox Basketball League</title>
+    <!-- Favicon (Browser Tab Icon) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3C!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --%3E%3Cpath fill='%23cc0000' d='M512 256C512 397.4 397.4 512 256 512S0 397.4 0 256 114.6 0 256 0s256 114.6 256 256zM256 80c-97 0-176 79-176 176s79 176 176 176 176-79 176-176S353 80 256 80zm0 352c-97 0-176-79-176-176S159 80 256 80s176 79 176 176-79 176-176 176zm0-320c-8 0-16 6-16 16v128h-128c-8.8 0-16 7.2-16 16s7.2 16 16 16h128v128c0 8.8 7.2 16 16 16s16-7.2 16-16V288h128c8.8 0 16-7.2 16-16s-7.2-16-16-16H272V128c0-8.8-7.2-16-16-16z'/%3E%3C/svg%3E" />
     <!-- Import Inter Font & Russo One (Sports Font) -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Russo+One&display=swap" rel="stylesheet">
     <!-- Import Icons -->
@@ -162,6 +164,13 @@
             gap: 1.5rem;
             margin-bottom: 2rem;
         }
+        
+        /* NEW HOME PAGE GRID (2 Columns by default) */
+        .home-grid {
+            /* Removed grid columns as widgets are gone, keeping it flex/block */
+            display: block; 
+            margin-bottom: 2rem;
+        }
 
         .card {
             background: var(--bg-white);
@@ -187,6 +196,121 @@
             align-items: center;
             gap: 10px;
         }
+        
+        /* FULL WIDTH HERO SECTION STYLES */
+        .home-hero {
+            /* Full width and breaking out of main container constraint */
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            
+            /* Background and color effects: Stronger red gradient */
+            background: #111;
+            background-image: linear-gradient(135deg, #222 0%, #111 60%), radial-gradient(circle at 100% 0%, rgba(204, 0, 0, 0.4) 0%, transparent 50%); 
+            color: white;
+            padding: 6rem 1.5rem 4rem; /* Adjusted vertical padding for spacing */
+            border-radius: 0; 
+            border: none; 
+            overflow: hidden;
+            
+            /* FIX: Use flexbox for vertical centering */
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Center vertically */
+            min-height: 250px; /* Ensure minimum size */
+        }
+        
+        /* Icon Pattern Effect using pseudo-element (Subtle Stripes) */
+        .home-hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.08; 
+            /* Subtle diagonal stripe texture */
+            background-image: linear-gradient(135deg, rgba(204, 0, 0, 0.5) 25%, transparent 25%, transparent 50%, rgba(204, 0, 0, 0.5) 50%, rgba(204, 0, 0, 0.5) 75%, transparent 75%, transparent);
+            background-size: 20px 20px; /* Small tile size */
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        /* Container to re-impose max-width and center content inside full-width banner */
+        .hero-content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 0 1.5rem;
+            position: relative;
+            z-index: 5;
+            /* Text alignment remains left */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+        }
+        
+        .hero-title {
+            font-size: clamp(2rem, 6vw, 4rem); /* Very large text */
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 0;
+            text-transform: lowercase; /* All lowercase */
+            color: white;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-slogan {
+            font-size: 1.2rem;
+            color: #ccc;
+            margin-bottom: 2rem;
+            max-width: 80%;
+        }
+
+        .league-specs-hero {
+            display: flex;
+            gap: 2.5rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            width: 100%;
+        }
+
+        /* NEW: Featured Block Style */
+        .featured-block {
+            background-color: var(--bg-white);
+            border-radius: var(--radius);
+            padding: 2rem;
+            border: 1px solid #eee;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        /* NEW: Info CTA Button */
+        .info-cta {
+            background: linear-gradient(90deg, var(--primary-red), #ff3333);
+            color: white;
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 800;
+            text-decoration: none;
+            display: block;
+            margin-top: 2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(204, 0, 0, 0.4);
+        }
+        
+        .info-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(204, 0, 0, 0.5);
+        }
+        
 
         /* --- LEAGUE SPECS WIDGET STYLES --- */
         .league-specs {
@@ -482,8 +606,6 @@
             color: white;
             padding: 1rem 2rem;
             border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
             box-shadow: 0 4px 15px rgba(204, 0, 0, 0.3);
             transition: all 0.3s ease;
             border: none;
@@ -508,6 +630,12 @@
             overflow: hidden;
             box-shadow: var(--shadow-sm);
             margin-bottom: 2rem;
+        }
+        
+        /* New class for universal right alignment */
+        .align-right {
+            text-align: right !important;
+            padding-right: 1.2rem !important; /* Ensure padding is maintained on the right */
         }
 
         .conference-header {
@@ -537,6 +665,19 @@
             font-size: 0.85rem;
             letter-spacing: 1px;
         }
+
+        /* Fixed widths for numerical columns to ensure alignment */
+        th:nth-child(3), td:nth-child(3),
+        th:nth-child(4), td:nth-child(4) {
+            width: 50px; /* W and L columns */
+        }
+        th:nth-child(5), td:nth-child(5) {
+            width: 100px; /* Win % column */
+        }
+        th:nth-child(6), td:nth-child(6) {
+            width: 60px; /* GB column */
+        }
+
 
         td {
             padding: 1rem 1.2rem;
@@ -591,11 +732,13 @@
             box-shadow: inset 4px 0 0 var(--primary-red);
         }
 
-        /* Win % Bar */
+        /* Win % Bar - Fix alignment within the right-aligned cell */
         .pct-container {
             display: flex;
             align-items: center;
             gap: 10px;
+            justify-content: flex-end; /* Align content to the right edge of the cell */
+            padding-right: 0; /* Remove internal padding if any */
         }
         .pct-bar-bg {
             width: 50px;
@@ -603,6 +746,7 @@
             background: #eee;
             border-radius: 10px;
             overflow: hidden;
+            flex-shrink: 0; /* Prevent bar from stretching */
         }
         .pct-bar-fill {
             height: 100%;
@@ -680,8 +824,18 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            /* Added for hover effect */
+            transition: all 0.3s ease-in-out;
+            perspective: 1000px;
         }
         
+        /* New: Roster Item Hover Effect */
+        .roster-item:hover {
+            transform: translateY(-5px) scale(1.02) perspective(1000px) rotateX(1deg) rotateY(-2deg);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 0 10px rgba(204, 0, 0, 0.3); /* Subtle red glow */
+            border-color: var(--primary-red);
+        }
+
         .roster-item::before {
             content: '';
             width: 8px;
@@ -788,6 +942,14 @@
             .discord-btn-nav i {
                 font-size: 1.2rem;
             }
+            
+            /* Home Page Mobile Overrides */
+            .home-hero {
+                padding: 3rem 1.5rem; /* Increased top/bottom padding for mobile emphasis */
+            }
+            .home-grid {
+                grid-template-columns: 1fr; /* Stack columns */
+            }
 
             .grid-container {
                 display: flex;
@@ -833,7 +995,7 @@
 
             .gotw-matchup-row {
                 flex-direction: row;
-                gap: 2px; /* Condensed gap on mobile */
+                gap: 2px;
             }
             
             .gotw-matchup-row > div {
@@ -841,11 +1003,11 @@
             }
 
             .gotw-matchup-row .team-name {
-                font-size: 0.75rem; /* Smaller text on mobile */
+                font-size: 0.75rem;
             }
             
             .gotw-matchup-row .vs-badge {
-                width: 24px;  /* Shrink @ badge size */
+                width: 24px;
                 height: 24px;
                 font-size: 0.9rem;
                 margin: 0;
@@ -964,7 +1126,7 @@
                     </button>
                 </li>
             </ul>
-            <!-- Replace 'YOUR_DISCORD_INVITE_HERE' with your actual link (e.g., https://discord.gg/abc1234) -->
+            <!-- Replace 'YOUR_DISCORD_INVITE_HERE' with your actual link (e.g., https://discord.gg/nbll) -->
             <a href="https://discord.gg/nbll" target="_blank" class="discord-btn-nav"><i class="fab fa-discord"></i> <span class="nav-text">Join Server</span></a>
         </div>
     </nav>
@@ -972,82 +1134,25 @@
     <main>
         <!-- HOME SECTION -->
         <section id="home" class="page-section active">
-            <div class="grid-container" style="grid-template-columns: 2fr 1fr;">
-                <!-- WELCOME WIDGET (REVAMPED) -->
-                <div class="card" style="background: radial-gradient(circle at 90% 10%, #ff4d4d 0%, transparent 40%), radial-gradient(circle at 0% 100%, #4a0000 0%, transparent 40%), linear-gradient(135deg, #cc0000, #800000); color: white; position: relative; overflow: hidden; border: 1px solid #ff3333; display: flex; flex-direction: column; justify-content: center; align-items: flex-start;">
-                    
-                    <!-- Updated Class for Responsive Text with Icon Removed -->
-                    <h1 class="welcome-header">
-                        Welcome to NBLL
+            
+            <!-- NEW: HERO SECTION (Full Width) -->
+            <div class="home-hero animate-in stagger-1">
+                <div class="hero-content-wrapper">
+                    <!-- Welcome Content -->
+                    <h1 class="hero-title">
+                        the highest level of basketball legends starts here.
                     </h1>
-                    <p style="color: #ffe6e6; font-size: 1.1rem; margin-bottom: 2rem; position: relative; z-index: 2; max-width: 90%; font-weight: 500; text-align: left;">
-                        Your hub for all things NBLL. Find constantly updated standings, schedules, stats and legacy embeds, etc.
-                    </p>
-                    
-                    <!-- REPLACED BUTTONS WITH LEAGUE QUICK SPECS -->
-                    <div class="league-specs">
-                        
-                        <div class="league-spec-item">
-                            <div class="spec-label">Format</div>
-                            <div class="spec-value">4v4</div>
-                        </div>
-
-                        <div class="league-spec-item">
-                            <div class="spec-label">Region</div>
-                            <div class="spec-value">NA East</div>
-                        </div>
-
-                        <div class="league-spec-item">
-                            <div class="spec-label">Teams</div>
-                            <div class="spec-value">14</div>
-                        </div>
-
-                    </div>
-                </div>
-
-                <!-- REPLACED: "LEAGUE STATUS HUB" WIDGET -->
-                <div class="card" style="background: #0f0f0f; border: 1px solid #222; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-start; min-height: 200px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-                    <!-- Ambient Glow -->
-                    <div style="position: absolute; top: -50%; right: -50%; width: 100%; height: 100%; background: radial-gradient(circle, rgba(0, 255, 0, 0.05) 0%, transparent 70%); pointer-events: none;"></div>
-
-                    <!-- Header -->
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                        <div style="font-family: 'Russo One', sans-serif; text-transform: uppercase; color: #fff; letter-spacing: 1px; font-size: 1.2rem;">
-                            <i class="fas fa-signal" style="color: var(--primary-red); margin-right: 8px;"></i> Status
-                        </div>
-                        <div style="background: rgba(255, 255, 255, 0.1); padding: 4px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: 700; color: #aaa;">
-                            S11
-                        </div>
-                    </div>
-
-                    <!-- Status Items (Added text-align: left to fix mobile) -->
-                    <div style="display: flex; flex-direction: column; gap: 1rem; text-align: left;">
-                        
-                        <!-- Phase -->
-                        <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 8px; border-left: 4px solid var(--primary-red);">
-                            <div style="color: #888; font-size: 0.75rem; text-transform: uppercase; font-weight: 700; margin-bottom: 4px;">Current Phase</div>
-                            <div style="color: white; font-weight: 700; font-size: 1.1rem;">Regular Season <span style="font-weight: 400; color: #666; font-size: 0.9rem;">(Week 4)</span></div>
-                        </div>
-
-                        <!-- Transactions -->
-                        <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
-                            <div>
-                                <div style="color: #888; font-size: 0.75rem; text-transform: uppercase; font-weight: 700;">Signings & Trades</div>
-                                <div style="color: white; font-weight: 700; font-size: 1rem;">On</div>
-                            </div>
-                            <div style="width: 12px; height: 12px; background: #00ff00; border-radius: 50%; box-shadow: 0 0 10px #00ff00;"></div>
-                        </div>
-
-                    </div>
                 </div>
             </div>
 
-            <!-- NEW: STAT LEADERS WIDGET -->
-            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-top: 2rem; margin-bottom: 1rem;">
-                <h2 style="margin: 0;">Season Leaders</h2>
-                <span style="color: var(--text-grey); font-size: 0.8rem; font-weight: 600;">Last Updated: 12/15</span>
+            <!-- NEW: FEATURE GRID (Matchup + Status) -->
+            <!-- REMOVED: Matchup Widget and Status Widget -->
+            <div class="home-grid">
+                <!-- This grid is now empty as requested -->
             </div>
             
+            <!-- NEW: STATS ROW (Full Width) -->
+            <h2 style="margin: 2rem 0 1rem 0;">Season Leaders</h2>
             <div class="stat-leaders-grid">
                 <!-- POINTS -->
                 <div class="stat-leader-card stagger-1 animate-in">
@@ -1083,48 +1188,13 @@
                 </div>
             </div>
 
-            <!-- "GAME OF THE WEEK" WIDGET -->
-            <h2 style="margin-bottom: 1rem; margin-top: 2rem;">Featured Matchup</h2>
-            <div class="card" style="background: white; border: 1px solid #eee; overflow: hidden; padding: 0;">
-                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem;">
-                    
-                    <!-- Header Tag -->
-                    <div style="background-color: var(--primary-red); color: white; font-weight: 800; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1.5rem;">
-                        Game of the Week
-                    </div>
+            <span style="color: var(--text-grey); font-size: 0.8rem; font-weight: 600; display: block; text-align: right; margin-top: -1.5rem;">Last Updated: 12/15</span>
+            
+            <!-- NEW: INFO CTA SECTION -->
+            <a class="info-cta" onclick="switchTab('info-page')">
+                <i class="fas fa-info-circle"></i> Info & More &rarr;
+            </a>
 
-                    <!-- Matchup Row with New Class -->
-                    <div class="gotw-matchup-row">
-                        
-                        <!-- Team 1 -->
-                        <div style="text-align: center; flex: 1; min-width: 120px;">
-                            <div style="font-size: 1.5rem; font-weight: 900; color: var(--text-black); text-transform: uppercase; line-height: 1.2;">
-                                Toronto<br><span style="color: #ce1141;">Raptors</span>
-                            </div>
-                            <div style="color: var(--text-grey); font-weight: 600; margin-top: 5px;">(6-1)</div>
-                        </div>
-
-                        <!-- VS Badge (Updated Font for @ symbol) -->
-                        <div class="vs-badge" style="background: #111; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1.4rem; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 2; flex-shrink: 0;">
-                            @
-                        </div>
-
-                        <!-- Team 2 -->
-                        <div style="text-align: center; flex: 1; min-width: 120px;">
-                            <div style="font-size: 1.5rem; font-weight: 900; color: var(--text-black); text-transform: uppercase; line-height: 1.2;">
-                                LA<br><span style="color: #552583;">Lakers</span>
-                            </div>
-                            <div style="color: var(--text-grey); font-weight: 600; margin-top: 5px;">(4-2)</div>
-                        </div>
-
-                    </div>
-                </div>
-                
-                <!-- Bottom Action Bar -->
-                <a href="#" onclick="switchTab('schedule'); return false;" style="display: block; background: #f8f9fa; padding: 15px; text-align: center; color: var(--text-grey); font-weight: 700; text-decoration: none; border-top: 1px solid #eee; transition: background 0.2s;">
-                    View Full Schedule &rarr;
-                </a>
-            </div>
         </section>
 
         <!-- STANDINGS SECTION -->
@@ -1139,63 +1209,73 @@
                         <tr>
                             <th style="width: 60px;">Rank</th>
                             <th>Team</th>
-                            <th>W</th>
-                            <th>L</th>
-                            <th>Win %</th>
-                            <th>GB</th>
+                            <th class="align-right">W</th>
+                            <th class="align-right">L</th>
+                            <th class="align-right">Win %</th>
+                            <th class="align-right">GB</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Top 4: Playoff Zone -->
+                        <!-- Western Conference Teams -->
                         <tr class="playoff-row stagger-1 animate-in" onclick="openTeamPage('clippers')">
                             <td><div class="rank-badge rank-1">1</div></td>
                             <td><span class="team-link">Clippers</span></td>
-                            <td class="win">6</td><td>0</td>
-                            <td><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 100%;"></div></div> 1.000</div></td>
-                            <td>-</td>
+                            <td class="win align-right">6</td>
+                            <td class="align-right">0</td>
+                            <td class="align-right"><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 100%;"></div></div> 1.000</div></td>
+                            <td class="align-right">-</td>
                         </tr>
                         <tr class="playoff-row stagger-2 animate-in" onclick="openTeamPage('mavs')">
                             <td><div class="rank-badge rank-2">2</div></td>
                             <td><span class="team-link">Mavs</span></td>
-                            <td class="win">5</td><td>1</td>
-                            <td><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 83%;"></div></div> .833</div></td>
-                            <td>1.0</td>
+                            <td class="win align-right">5</td>
+                            <td class="align-right">1</td>
+                            <td class="align-right"><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 83%;"></div></div> .833</div></td>
+                            <td class="align-right">1.0</td>
                         </tr>
                         <tr class="playoff-row stagger-3 animate-in" onclick="openTeamPage('lakers')">
                             <td><div class="rank-badge rank-3">3</div></td>
                             <td><span class="team-link">Lakers</span></td>
-                            <td class="win">4</td><td>2</td>
-                            <td><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 66%;"></div></div> .667</div></td>
-                            <td>2.0</td>
+                            <td class="win align-right">4</td>
+                            <td class="align-right">2</td>
+                            <td class="align-right"><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 66%;"></div></div> .667</div></td>
+                            <td class="align-right">2.0</td>
                         </tr>
                         <tr class="playoff-row stagger-4 animate-in" onclick="openTeamPage('nuggets')">
                             <td><div class="rank-badge">4</div></td>
                             <td><span class="team-link">Nuggets</span></td>
-                            <td class="win">4</td><td>2</td>
-                            <td><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 66%;"></div></div> .667</div></td>
-                            <td>2.0</td>
+                            <td class="win align-right">4</td>
+                            <td class="align-right">2</td>
+                            <td class="align-right"><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 66%;"></div></div> .667</div></td>
+                            <td class="align-right">2.0</td>
                         </tr>
-                        <!-- Bottom 3: Outside Playoffs -->
+                        
+                        <!-- NEW: PLAYOFF DIVIDER -->
+                        <tr style="height: 15px;"><td colspan="6" style="padding: 0; border: none;"><div style="background: #e0e0e0; height: 3px; margin: 5px 0;"></div></td></tr>
+
                         <tr class="stagger-5 animate-in" onclick="openTeamPage('grizzlies')">
                             <td><div class="rank-badge">5</div></td>
                             <td><span class="team-link">Grizzlies</span></td>
-                            <td class="win">1</td><td>5</td>
-                            <td><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 16%;"></div></div> .167</div></td>
-                            <td>5.0</td>
+                            <td class="win align-right">1</td>
+                            <td class="align-right">5</td>
+                            <td class="align-right"><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 16%;"></div></div> .167</div></td>
+                            <td class="align-right">5.0</td>
                         </tr>
                         <tr class="stagger-6 animate-in" onclick="openTeamPage('wolves')">
                             <td><div class="rank-badge">6</div></td>
                             <td><span class="team-link">Timberwolves</span></td>
-                            <td class="win">0</td><td>6</td>
-                            <td><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 0%;"></div></div> .000</div></td>
-                            <td>6.0</td>
+                            <td class="win align-right">0</td>
+                            <td class="align-right">6</td>
+                            <td class="align-right"><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 0%;"></div></div> .000</div></td>
+                            <td class="align-right">6.0</td>
                         </tr>
                         <tr class="stagger-7 animate-in" onclick="openTeamPage('thunder')">
                             <td><div class="rank-badge">7</div></td>
                             <td><span class="team-link">Thunder</span></td>
-                            <td class="win">0</td><td>7</td>
-                            <td><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 0%;"></div></div> .000</div></td>
-                            <td>6.5</td>
+                            <td class="win align-right">0</td>
+                            <td class="align-right">7</td>
+                            <td class="align-right"><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 0%;"></div></div> .000</div></td>
+                            <td class="align-right">6.5</td>
                         </tr>
                     </tbody>
                 </table>
@@ -1209,66 +1289,82 @@
                         <tr>
                             <th style="width: 60px;">Rank</th>
                             <th>Team</th>
-                            <th>W</th>
-                            <th>L</th>
-                            <th>Win %</th>
-                            <th>GB</th>
+                            <th class="align-right">W</th>
+                            <th class="align-right">L</th>
+                            <th class="align-right">Win %</th>
+                            <th class="align-right">GB</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Top 4: Playoff Zone -->
+                        <!-- Eastern Conference Teams -->
                         <tr class="playoff-row stagger-1 animate-in">
                             <td><div class="rank-badge rank-1">1</div></td>
-                            <td><span style="font-weight: 700;">Raptors</span></td>
-                            <td class="win">6</td><td>1</td>
-                            <td><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 85%;"></div></div> .857</div></td>
-                            <td>-</td>
+                            <td><span class="team-link" onclick="openTeamPage('raptors')">Raptors</span></td>
+                            <td class="win align-right">6</td>
+                            <td class="align-right">1</td>
+                            <td class="align-right"><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 85%;"></div></div> .857</div></td>
+                            <td class="align-right">-</td>
                         </tr>
                         <tr class="playoff-row stagger-2 animate-in">
                             <td><div class="rank-badge rank-2">2</div></td>
-                            <td><span style="font-weight: 600;">Bucks</span></td>
-                            <td class="win">5</td><td>2</td>
-                            <td><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 71%;"></div></div> .714</div></td>
-                            <td>1.0</td>
+                            <td><span class="team-link" onclick="openTeamPage('bucks')">Bucks</span></td>
+                            <td class="win align-right">5</td>
+                            <td class="align-right">2</td>
+                            <td class="align-right"><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 71%;"></div></div> .714</div></td>
+                            <td class="align-right">1.0</td>
                         </tr>
                         <tr class="playoff-row stagger-3 animate-in">
                             <td><div class="rank-badge rank-3">3</div></td>
-                            <td><span style="font-weight: 600;">Bulls</span></td>
-                            <td class="win">4</td><td>2</td>
-                            <td><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 66%;"></div></div> .667</div></td>
-                            <td>1.5</td>
+                            <td><span class="team-link" onclick="openTeamPage('bulls')">Bulls</span></td>
+                            <td class="win align-right">4</td>
+                            <td class="align-right">2</td>
+                            <td class="align-right"><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 66%;"></div></div> .667</div></td>
+                            <td class="align-right">1.5</td>
                         </tr>
                         <tr class="playoff-row stagger-4 animate-in">
                             <td><div class="rank-badge">4</div></td>
-                            <td>Magic</td>
-                            <td class="win">3</td><td>3</td>
-                            <td><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 50%;"></div></div> .500</div></td>
-                            <td>2.5</td>
+                            <td><span class="team-link" onclick="openTeamPage('magic')">Magic</span></td>
+                            <td class="win align-right">3</td>
+                            <td class="align-right">3</td>
+                            <td class="align-right"><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 50%;"></div></div> .500</div></td>
+                            <td class="align-right">2.5</td>
                         </tr>
-                        <!-- Bottom 3: Outside Playoffs -->
+                        
+                        <!-- NEW: PLAYOFF DIVIDER -->
+                        <tr style="height: 15px;"><td colspan="6" style="padding: 0; border: none;"><div style="background: #e0e0e0; height: 3px; margin: 5px 0;"></div></td></tr>
+
                         <tr class="stagger-5 animate-in">
                             <td><div class="rank-badge">5</div></td>
-                            <td>Heat</td>
-                            <td class="win">3</td><td>3</td>
-                            <td><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 50%;"></div></div> .500</div></td>
-                            <td>2.5</td>
+                            <td><span class="team-link" onclick="openTeamPage('heat')">Heat</span></td>
+                            <td class="win align-right">3</td>
+                            <td class="align-right">3</td>
+                            <td class="align-right"><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 50%;"></div></div> .500</div></td>
+                            <td class="align-right">2.5</td>
                         </tr>
                         <tr class="stagger-6 animate-in">
                             <td><div class="rank-badge">6</div></td>
-                            <td>Celtics</td>
-                            <td class="win">2</td><td>5</td>
-                            <td><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 28%;"></div></div> .286</div></td>
-                            <td>4.0</td>
+                            <td><span class="team-link" onclick="openTeamPage('celtics')">Celtics</span></td>
+                            <td class="win align-right">2</td>
+                            <td class="align-right">5</td>
+                            <td class="align-right"><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 28%;"></div></div> .286</div></td>
+                            <td class="align-right">4.0</td>
                         </tr>
                         <tr class="stagger-7 animate-in">
                             <td><div class="rank-badge">7</div></td>
-                            <td>Hawks</td>
-                            <td class="win">1</td><td>5</td>
-                            <td><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 16%;"></div></div> .167</div></td>
-                            <td>4.5</td>
+                            <td><span class="team-link" onclick="openTeamPage('hawks')">Hawks</span></td>
+                            <td class="win align-right">1</td>
+                            <td class="align-right">5</td>
+                            <td class="align-right"><div class="pct-container"><div class="pct-bar-bg"><div class="pct-bar-fill" style="width: 16%;"></div></div> .167</div></td>
+                            <td class="align-right">4.5</td>
                         </tr>
                     </tbody>
                 </table>
+            </div>
+
+            <!-- Standings Key -->
+            <div style="margin-top: 10px; display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-grey);">
+                <div style="width: 16px; height: 16px; background-color: rgba(255, 245, 245, 0.8); box-shadow: inset 4px 0 0 var(--primary-red); border: 1px solid #eee;"></div>
+                <span>Highlighted in red = Currently in Playoffs</span>
             </div>
         </section>
         
@@ -1281,6 +1377,16 @@
             <div id="team-profile-content">
                 <!-- Content will be injected via JS -->
             </div>
+        </section>
+        
+        <!-- NEW INFO LANDING PAGE -->
+        <section id="info-page" class="page-section">
+            <button class="cta-btn" onclick="switchTab('home')" style="margin-bottom: 2rem; background: white; color: var(--text-black); border: 1px solid #ddd; padding: 10px 20px; font-size: 0.9rem;">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </button>
+            <h1>League Information & History</h1>
+            <p style="color: var(--text-grey);">This page is ready for content!</p>
+            <!-- Content will be added here later -->
         </section>
 
         <!-- STATS SECTION (Google Sheet) -->
@@ -1418,13 +1524,13 @@
                     <div class="game-column">
                         <div class="game-column-title">Game 2</div>
 
-                        <div class="matchup-item"><span class="team-name"><span class="team-record">(5-1)</span> Mavs</span> <span class="at-separator">@</span> <span class="team-name">Nuggets <span class="team-record">(4-2)</span></span></div>
-                        <div class="matchup-item"><span class="team-name"><span class="team-record">(4-2)</span> Bulls</span> <span class="at-separator">@</span> <span class="team-name">Grizzlies <span class="team-record">(1-5)</span></span></div>
-                        <div class="matchup-item"><span class="team-name"><span class="team-record">(5-2)</span> Bucks</span> <span class="at-separator">@</span> <span class="team-name">Magic <span class="team-record">(3-3)</span></span></div>
-                        <div class="matchup-item"><span class="team-name"><span class="team-record">(2-5)</span> Celtics</span> <span class="at-separator">@</span> <span class="team-name">Heat <span class="team-record">(3-3)</span></span></div>
-                        <div class="matchup-item"><span class="team-name"><span class="team-record">(0-6)</span> Wolves</span> <span class="at-separator">@</span> <span class="team-name">Clippers <span class="team-record">(6-0)</span></span></div>
-                        <div class="matchup-item"><span class="team-name"><span class="team-record">(0-7)</span> Thunder</span> <span class="at-separator">@</span> <span class="team-name">Raptors <span class="team-record">(6-1)</span></span></div>
-                        <div class="matchup-item"><span class="team-name"><span class="team-record">(4-2)</span> Lakers</span> <span class="at-separator">@</span> <span class="team-name">Hawks <span class="team-record">(1-5)</span></span></div>
+                        <div class="matchup-item"><span class="team-name">Mavs <span class="team-record">(5-1)</span></span> <span class="at-separator">@</span> <span class="team-name">Nuggets <span class="team-record">(4-2)</span></span></div>
+                        <div class="matchup-item"><span class="team-name">Bulls <span class="team-record">(4-2)</span></span> <span class="at-separator">@</span> <span class="team-name">Grizzlies <span class="team-record">(1-5)</span></span></div>
+                        <div class="matchup-item"><span class="team-name">Bucks <span class="team-record">(5-2)</span></span> <span class="at-separator">@</span> <span class="team-name">Magic <span class="team-record">(3-3)</span></span></div>
+                        <div class="matchup-item"><span class="team-name">Celtics <span class="team-record">(2-5)</span></span> <span class="at-separator">@</span> <span class="team-name">Heat <span class="team-record">(3-3)</span></span></div>
+                        <div class="matchup-item"><span class="team-name">Wolves <span class="team-record">(0-6)</span></span> <span class="at-separator">@</span> <span class="team-name">Clippers <span class="team-record">(6-0)</span></span></div>
+                        <div class="matchup-item"><span class="team-name">Thunder <span class="team-record">(0-7)</span></span> <span class="at-separator">@</span> <span class="team-name">Raptors <span class="team-record">(6-1)</span></span></div>
+                        <div class="matchup-item"><span class="team-name">Lakers <span class="team-record">(4-2)</span></span> <span class="at-separator">@</span> <span class="team-name">Hawks <span class="team-record">(1-5)</span></span></div>
                     </div>
                 </div>
             </div>
@@ -1558,43 +1664,43 @@
                 name: 'LA Clippers',
                 owner: 'jomz (FO)',
                 color: '#1D428A', // Clippers Blue
-                roster: ['Rahbizzy', 'Bum', 'pansho', 'aesir', 'abel', 'taser', 'junior', 'chxno', 'gmz']
+                roster: ['Rahbizzy', 'Bum', 'pansho', 'aesir', 'jomz (FO)', 'abel', 'taser', 'junior', 'chxno', 'gmz']
             },
             'mavs': {
                 name: 'Dallas Mavericks',
                 owner: 'b3t (FO)',
                 color: '#00538C', // Mavs Blue
-                roster: ['star', '1luv', 'nero', 'Kirazi', 'AJ', 'dave', 'Ghost', 'polar', '1248891831886938206']
+                roster: ['star', '1luv', 'nero', 'Kirazi', 'AJ', 'b3t (FO)', 'dave', 'Ghost', 'polar', '1248891831886938206']
             },
             'lakers': {
                 name: 'LA Lakers',
                 owner: 'Sinful (FO)',
                 color: '#552583', // Lakers Purple
-                roster: ['3tomo', 'Blade', 'kbv', 'nacho', 'Donny', 'MemeeReborn', 'punkmonk']
+                roster: ['Sinful (FO)', '3tomo', 'Blade', 'kbv', 'nacho', 'Donny', 'MemeeReborn', 'punkmonk']
             },
             'nuggets': {
                 name: 'Denver Nuggets',
                 owner: 'DogeShadowDragon (FO)',
                 color: '#0E2240', // Nuggets Navy/Gold
-                roster: ['Roundy', 'rock', 'morganana', 'talent', 'TREX']
+                roster: ['Roundy', 'rock', 'morganana', 'DogeShadowDragon (FO)', 'talent', 'TREX']
             },
             'grizzlies': {
                 name: 'Memphis Grizzlies',
                 owner: 'Kevo (FO)',
                 color: '#5D76A9', // Grizzlies Blue
-                roster: ['Aggro', 'ohio', 'Ken', 'rongone', 'Frq', 'zen']
+                roster: ['Aggro', 'ohio', 'Kevo (FO)', 'Ken', 'rongone', 'Frq', 'zen']
             },
             'wolves': { // mapped from 'timberwolves' in standings
                 name: 'Minnesota Timberwolves',
                 owner: 'GameSmasherYT (FO)',
                 color: '#0C2340', // Wolves Blue
-                roster: ['Axn', 'Jack', 'jc', 'Nyctophobia', 'madnessSX', 'scary', 'boredomm']
+                roster: ['Axn', 'Jack', 'jc', 'Nyctophobia', 'madnessSX', 'scary', 'GameSmasherYT (FO)', 'boredomm']
             },
             'thunder': {
                 name: 'OKC Thunder',
                 owner: 'falcvo (FO)',
                 color: '#007AC1', // Thunder Blue
-                roster: ['Balanitis Bleu', 's', 'Xid']
+                roster: ['falcvo (FO)', 'Balanitis Bleu', 's', 'Xid']
             },
             // Placeholders for East Teams (prevent errors if clicked)
             'raptors': { name: 'Toronto Raptors', owner: 'TBD', color: '#CE1141', roster: ['Coming Soon'] },
@@ -1607,13 +1713,13 @@
         };
 
         function switchTab(tabId) {
-            // Hide all pages including team profile
+            // 1. Hide all Page Sections
             const sections = document.querySelectorAll('.page-section');
             sections.forEach(section => {
                 section.classList.remove('active');
             });
 
-            // Show selected page
+            // 2. Show the clicked section
             const activeSection = document.getElementById(tabId);
             if (activeSection) {
                 activeSection.classList.add('active');
@@ -1622,12 +1728,12 @@
                 const animatedElements = activeSection.querySelectorAll('.animate-in');
                 animatedElements.forEach(el => {
                     el.style.animation = 'none';
-                    el.offsetHeight; 
+                    el.offsetHeight; /* trigger reflow */
                     el.style.animation = null; 
                 });
             }
 
-            // Update Navigation Buttons
+            // 3. Update Navigation Buttons
             const buttons = document.querySelectorAll('.nav-btn');
             buttons.forEach(btn => {
                 btn.classList.remove('active');
@@ -1663,7 +1769,16 @@
 
             // Roster
             html += `<h2 style="margin-bottom: 1rem;">Active Roster</h2><ul class="roster-list">`;
-            team.roster.forEach(player => {
+            // Ensure owner is at the top of the roster list
+            const ownerName = team.owner.replace(' (FO)', '');
+            const nonOwnerRoster = team.roster.filter(player => player !== team.owner && player !== ownerName);
+            
+            // Add owner to list first if they are also listed as a player
+            if (team.roster.includes(team.owner) || team.roster.includes(ownerName)) {
+                 html += `<li class="roster-item" style="font-weight: 800; background: #fff;">${ownerName} (Owner)</li>`;
+            }
+
+            nonOwnerRoster.forEach(player => {
                 html += `<li class="roster-item">${player}</li>`;
             });
             html += `</ul>`;

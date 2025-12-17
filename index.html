@@ -23,6 +23,7 @@
             --shadow-sm: 0 4px 6px rgba(0,0,0,0.05);
             --shadow-lg: 0 10px 25px rgba(0,0,0,0.1);
             --radius: 16px;               /* Rounded corners */
+            --footer-gray: #e9ecef;       /* New light gray for footer */
         }
 
         * {
@@ -211,16 +212,21 @@
             background: #111;
             background-image: linear-gradient(135deg, #222 0%, #111 60%), radial-gradient(circle at 100% 0%, rgba(204, 0, 0, 0.4) 0%, transparent 50%); 
             color: white;
-            padding: 6rem 1.5rem 4rem; /* Adjusted vertical padding for spacing */
+            
+            /* FIX: Vertical Centering */
+            display: flex;
+            flex-direction: column;
+            justify-content: center; 
+            min-height: 250px; 
+            padding-top: 0; /* Remove padding from hero itself */
+            padding-bottom: 0; /* Remove padding from hero itself */
+            
+            /* Add red glow */
+            box-shadow: 0 0 40px rgba(204, 0, 0, 0.5); 
+            
             border-radius: 0; 
             border: none; 
             overflow: hidden;
-            
-            /* FIX: Use flexbox for vertical centering */
-            display: flex;
-            flex-direction: column;
-            justify-content: center; /* Center vertically */
-            min-height: 250px; /* Ensure minimum size */
         }
         
         /* Icon Pattern Effect using pseudo-element (Subtle Stripes) */
@@ -244,7 +250,7 @@
             max-width: 1200px;
             margin: 0 auto;
             width: 100%;
-            padding: 0 1.5rem;
+            padding: 4.5rem 1.5rem; /* UNIFIED PADDING FOR SYMMETRY */
             position: relative;
             z-index: 5;
             /* Text alignment remains left */
@@ -773,11 +779,33 @@
 
         /* --- FOOTER --- */
         footer {
-            background-color: var(--bg-white);
-            padding: 3rem 1rem;
-            text-align: center;
+            background-color: var(--footer-gray); /* Gray background */
+            padding: 1.5rem 1.5rem;
             border-top: 1px solid #eee;
             margin-top: 4rem;
+            /* Flex properties for vertical and horizontal centering */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center; 
+        }
+        .footer-main-row {
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            /* Center elements horizontally */
+            justify-content: center;
+            align-items: center;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-black);
+            margin-bottom: 10px; 
+            gap: 30px; /* Space between copyright and name */
+        }
+        .footer-discord-row {
+            max-width: 1200px;
+            width: 100%;
+            text-align: center;
         }
         
         /* --- TEAM PROFILE STYLES --- */
@@ -1384,9 +1412,243 @@
             <button class="cta-btn" onclick="switchTab('home')" style="margin-bottom: 2rem; background: white; color: var(--text-black); border: 1px solid #ddd; padding: 10px 20px; font-size: 0.9rem;">
                 <i class="fas fa-arrow-left"></i> Back to Home
             </button>
-            <h1>League Information & History</h1>
-            <p style="color: var(--text-grey);">This page is ready for content!</p>
-            <!-- Content will be added here later -->
+            <h1 style="font-family: 'Russo One', sans-serif;">NBLL College</h1>
+            <p style="color: var(--text-grey); font-size: 1.2rem; margin-bottom: 2rem;">develop to the next level.</p>
+            
+            <!-- COLLEGE LEAGUE LEADERS -->
+            <h2 style="margin: 2rem 0 1rem 0;">College League Leaders</h2>
+            <div style="background: white; border-radius: 12px; padding: 1.5rem; border: 1px solid #eee; box-shadow: var(--shadow-sm);">
+                <table style="width: 100%; border-collapse: separate; border-spacing: 0 5px;">
+                    <thead>
+                        <tr style="background: #f8f8f8;">
+                            <th style="text-align: left; padding: 10px;">Player</th>
+                            <th class="align-right">PTS</th>
+                            <th class="align-right">AST</th>
+                            <th class="align-right">REB</th>
+                            <th class="align-right">STL</th>
+                            <th class="align-right">BLK</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="stagger-1 animate-in">
+                            <td style="font-weight: 700; color: var(--primary-red);">Ken</td>
+                            <td class="align-right">98</td>
+                            <td class="align-right">9</td>
+                            <td class="align-right">4</td>
+                            <td class="align-right">2</td>
+                            <td class="align-right">0</td>
+                        </tr>
+                        <tr class="stagger-2 animate-in">
+                            <td style="font-weight: 600;">Roundy</td>
+                            <td class="align-right">80</td>
+                            <td class="align-right">5</td>
+                            <td class="align-right">7</td>
+                            <td class="align-right">6</td>
+                            <td class="align-right">1</td>
+                        </tr>
+                        <tr class="stagger-3 animate-in">
+                            <td style="font-weight: 600;">Frq</td>
+                            <td class="align-right">60</td>
+                            <td class="align-right">10</td>
+                            <td class="align-right">1</td>
+                            <td class="align-right">3</td>
+                            <td class="align-right">0</td>
+                        </tr>
+                        <tr class="stagger-4 animate-in">
+                            <td style="font-weight: 600;">Chicken</td>
+                            <td class="align-right">56</td>
+                            <td class="align-right">23</td>
+                            <td class="align-right">3</td>
+                            <td class="align-right">10</td>
+                            <td class="align-right">0</td>
+                        </tr>
+                        <tr class="stagger-5 animate-in">
+                            <td style="font-weight: 600;">Kevo</td>
+                            <td class="align-right">55</td>
+                            <td class="align-right">8</td>
+                            <td class="align-right">1</td>
+                            <td class="align-right">10</td>
+                            <td class="align-right">0</td>
+                        </tr>
+                        <tr class="stagger-6 animate-in">
+                            <td style="font-weight: 600;">Punkmonk</td>
+                            <td class="align-right">53</td>
+                            <td class="align-right">11</td>
+                            <td class="align-right">6</td>
+                            <td class="align-right">0</td>
+                            <td class="align-right">0</td>
+                        </tr>
+                        <tr class="stagger-7 animate-in">
+                            <td style="font-weight: 600;">Faded</td>
+                            <td class="align-right">52</td>
+                            <td class="align-right">14</td>
+                            <td class="align-right">2</td>
+                            <td class="align-right">8</td>
+                            <td class="align-right">0</td>
+                        </tr>
+                        <tr class="stagger-8 animate-in">
+                            <td style="font-weight: 600;">Green</td>
+                            <td class="align-right">42</td>
+                            <td class="align-right">36</td>
+                            <td class="align-right">15</td>
+                            <td class="align-right">7</td>
+                            <td class="align-right">1</td>
+                        </tr>
+                        <tr class="stagger-9 animate-in">
+                            <td style="font-weight: 600;">Tomo</td>
+                            <td class="align-right">41</td>
+                            <td class="align-right">4</td>
+                            <td class="align-right">0</td>
+                            <td class="align-right">1</td>
+                            <td class="align-right">0</td>
+                        </tr>
+                        <tr class="stagger-10 animate-in">
+                            <td style="font-weight: 600;">Chris</td>
+                            <td class="align-right">40</td>
+                            <td class="align-right">7</td>
+                            <td class="align-right">2</td>
+                            <td class="align-right">5</td>
+                            <td class="align-right">0</td>
+                        </tr>
+                        <tr class="stagger-1 animate-in">
+                            <td style="font-weight: 600;">Soulz</td>
+                            <td class="align-right">37</td>
+                            <td class="align-right">7</td>
+                            <td class="align-right">4</td>
+                            <td class="align-right">2</td>
+                            <td class="align-right">0</td>
+                        </tr>
+                        <tr class="stagger-2 animate-in">
+                            <td style="font-weight: 600;">Demon2</td>
+                            <td class="align-right">37</td>
+                            <td class="align-right">2</td>
+                            <td class="align-right">4</td>
+                            <td class="align-right">2</td>
+                            <td class="align-right">0</td>
+                        </tr>
+                        <tr class="stagger-3 animate-in">
+                            <td style="font-weight: 600;">Neil</td>
+                            <td class="align-right">35</td>
+                            <td class="align-right">12</td>
+                            <td class="align-right">5</td>
+                            <td class="align-right">6</td>
+                            <td class="align-right">0</td>
+                        </tr>
+                        <tr class="stagger-4 animate-in">
+                            <td style="font-weight: 600;">Cam</td>
+                            <td class="align-right">33</td>
+                            <td class="align-right">8</td>
+                            <td class="align-right">4</td>
+                            <td class="align-right">5</td>
+                            <td class="align-right">0</td>
+                        </tr>
+                        <tr class="stagger-5 animate-in">
+                            <td style="font-weight: 600;">Morgana</td>
+                            <td class="align-right">28</td>
+                            <td class="align-right">0</td>
+                            <td class="align-right">0</td>
+                            <td class="align-right">1</td>
+                            <td class="align-right">0</td>
+                        </tr>
+                        <tr class="stagger-6 animate-in">
+                            <td style="font-weight: 600;">Bleu</td>
+                            <td class="align-right">28</td>
+                            <td class="align-right">1</td>
+                            <td class="align-right">0</td>
+                            <td class="align-right">1</td>
+                            <td class="align-right">0</td>
+                        </tr>
+                        <tr class="stagger-7 animate-in">
+                            <td style="font-weight: 600;">Jomz</td>
+                            <td class="align-right">28</td>
+                            <td class="align-right">9</td>
+                            <td class="align-right">2</td>
+                            <td class="align-right">2</td>
+                            <td class="align-right">0</td>
+                        </tr>
+                        <tr class="stagger-8 animate-in">
+                            <td style="font-weight: 600;">Jack</td>
+                            <td class="align-right">24</td>
+                            <td class="align-right">1</td>
+                            <td class="align-right">3</td>
+                            <td class="align-right">0</td>
+                            <td class="align-right">0</td>
+                        </tr>
+                        <tr class="stagger-9 animate-in">
+                            <td style="font-weight: 600;">Jake</td>
+                            <td class="align-right">24</td>
+                            <td class="align-right">21</td>
+                            <td class="align-right">1</td>
+                            <td class="align-right">4</td>
+                            <td class="align-right">0</td>
+                        </tr>
+                        <tr class="stagger-10 animate-in">
+                            <td style="font-weight: 600;">Seeker</td>
+                            <td class="align-right">21</td>
+                            <td class="align-right">20</td>
+                            <td class="align-right">2</td>
+                            <td class="align-right">5</td>
+                            <td class="align-right">0</td>
+                        </tr>
+                        <tr class="stagger-1 animate-in">
+                            <td style="font-weight: 600;">Xid</td>
+                            <td class="align-right">17</td>
+                            <td class="align-right">8</td>
+                            <td class="align-right">3</td>
+                            <td class="align-right">1</td>
+                            <td class="align-right">0</td>
+                        </tr>
+                        <tr class="stagger-2 animate-in">
+                            <td style="font-weight: 600;">Coves</td>
+                            <td class="align-right">15</td>
+                            <td class="align-right">22</td>
+                            <td class="align-right">5</td>
+                            <td class="align-right">2</td>
+                            <td class="align-right">0</td>
+                        </tr>
+                        <tr class="stagger-3 animate-in">
+                            <td class="align-right">Max</td>
+                            <td class="align-right">12</td>
+                            <td class="align-right">26</td>
+                            <td class="align-right">4</td>
+                            <td class="align-right">5</td>
+                            <td class="align-right">0</td>
+                        </tr>
+                        <tr class="stagger-4 animate-in">
+                            <td style="font-weight: 600;">Blixer</td>
+                            <td class="align-right">9</td>
+                            <td class="align-right">6</td>
+                            <td class="align-right">1</td>
+                            <td class="align-right">1</td>
+                            <td class="align-right">0</td>
+                        </tr>
+                        <tr class="stagger-5 animate-in">
+                            <td style="font-weight: 600;">Y2</td>
+                            <td class="align-right">7</td>
+                            <td class="align-right">2</td>
+                            <td class="align-right">3</td>
+                            <td class="align-right">1</td>
+                            <td class="align-right">0</td>
+                        </tr>
+                        <tr class="stagger-6 animate-in">
+                            <td style="font-weight: 600;">Colt</td>
+                            <td class="align-right">3</td>
+                            <td class="align-right">10</td>
+                            <td class="align-right">3</td>
+                            <td class="align-right">0</td>
+                            <td class="align-right">0</td>
+                        </tr>
+                        <tr class="stagger-7 animate-in">
+                            <td style="font-weight: 600;">Viro</td>
+                            <td class="align-right">0</td>
+                            <td class="align-right">9</td>
+                            <td class="align-right">0</td>
+                            <td class="align-right">0</td>
+                            <td class="align-right">0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </section>
 
         <!-- STATS SECTION (Google Sheet) -->
@@ -1651,13 +1913,51 @@
     </main>
 
     <footer>
-        <p>&copy; 2025 NBLL - Roblox Basketball League.</p>
-        <div style="margin-top: 10px;">
+        <div class="footer-main-row">
+            <p>&copy; 2025 NBLL</p>
+            <p>jomz</p>
+        </div>
+        <div class="footer-discord-row">
             <a href="#" style="color: var(--text-grey); text-decoration: none;">Discord</a>
         </div>
     </footer>
 
     <script>
+        // --- CORE NAVIGATION FUNCTIONS ---
+        function switchTab(tabId) {
+            // 1. Hide all Page Sections
+            const sections = document.querySelectorAll('.page-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // 2. Show the selected section
+            const activeSection = document.getElementById(tabId);
+            if (activeSection) {
+                activeSection.classList.add('active');
+                
+                // Re-trigger animations
+                const animatedElements = activeSection.querySelectorAll('.animate-in');
+                animatedElements.forEach(el => {
+                    el.style.animation = 'none';
+                    el.offsetHeight; /* trigger reflow */
+                    el.style.animation = null; 
+                });
+            }
+
+            // 3. Update Navigation Buttons
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+                // Check if the button's onclick attribute targets the current tabId
+                if (btn.getAttribute('onclick').includes(`'${tabId}'`)) {
+                    btn.classList.add('active');
+                }
+            });
+
+            window.scrollTo(0, 0);
+        }
+
         // --- TEAM DATA ---
         const teams = {
             'clippers': {
@@ -1711,39 +2011,6 @@
             'celtics': { name: 'Boston Celtics', owner: 'TBD', color: '#007A33', roster: ['Coming Soon'] },
             'hawks': { name: 'Atlanta Hawks', owner: 'TBD', color: '#C1D32F', roster: ['Coming Soon'] }
         };
-
-        function switchTab(tabId) {
-            // 1. Hide all Page Sections
-            const sections = document.querySelectorAll('.page-section');
-            sections.forEach(section => {
-                section.classList.remove('active');
-            });
-
-            // 2. Show the clicked section
-            const activeSection = document.getElementById(tabId);
-            if (activeSection) {
-                activeSection.classList.add('active');
-                
-                // Re-trigger animations
-                const animatedElements = activeSection.querySelectorAll('.animate-in');
-                animatedElements.forEach(el => {
-                    el.style.animation = 'none';
-                    el.offsetHeight; /* trigger reflow */
-                    el.style.animation = null; 
-                });
-            }
-
-            // 3. Update Navigation Buttons
-            const buttons = document.querySelectorAll('.nav-btn');
-            buttons.forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.getAttribute('onclick').includes(`'${tabId}'`)) {
-                    btn.classList.add('active');
-                }
-            });
-
-            window.scrollTo(0, 0);
-        }
 
         // --- TEAM PROFILE LOGIC ---
         function openTeamPage(teamKey) {
